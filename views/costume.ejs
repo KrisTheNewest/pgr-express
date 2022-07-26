@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" href="/images/icon32.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PGR Coatings</title>
+    <!-- <link rel="stylesheet" href="/stylesheets/style.css" /> -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+  </head>
+  <body>
+    <header class="row">
+      <%- include('./partials/header.ejs'); %>
+    </header>
+    <main class="container">
+      <h3>
+        <%=allCost.frameName%><small class="text-muted"> <%=allCost.charaName%></small> <button class="btn btn-primary btn-sm">Edit</button>
+      </h3>
+      <h5><%= currCost.skinName %> <button class="btn btn-primary btn-sm">Edit</button></h5> 
+      <div class="row align-items-start">
+        <div class="col">
+          Price <button class="btn btn-primary btn-sm">Edit</button>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Price</th>
+                <th scope="col">Currency</th>
+                <th scope="col">Comment</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% currCost.price.forEach(function(val){ %> 
+                <tr>
+                  <% if (val.value) { %> 
+                    <td><%= val.value %> </td> 
+                  <% } else { %>
+                    <td> - </td>
+                  <% } %>
+                  <% if (val.currency) { %> 
+                    <td><%= val.currency %> </td> 
+                  <% } else { %>
+                    <td> - </td>
+                  <% } %>
+                  <% if (val.name) { %> 
+                    <td><%= val.name %> </td> 
+                  <% } else { %>
+                    <td> - </td>
+                  <% } %>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+        <div class="col">
+          Event <button class="btn btn-primary btn-sm">Edit</button>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Region</th>
+                <th scope="col">Start </th>
+                <th scope="col">Finish</th>
+                <th scope="col">Rerun</th>
+                <th scope="col">Discounted</th>
+                <th scope="col">Comment</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% currCost.event.forEach(function(val){ %> 
+                <tr>
+                  <td> <%= val.region %> </td>
+                  <% if (val.start) { %> 
+                    <td><%= val.start %> </td> 
+                  <% } else { %>
+                    <td> - </td>
+                  <% } %>
+                  <% if (val.finish) { %> 
+                    <td><%= val.finish %> </td> 
+                  <% } else { %>
+                    <td> - </td>
+                  <% } %>
+                  <% if (val.rerun) { %> 
+                    <td>☑️ </td> 
+                  <% } else { %>
+                    <td> - </td>
+                  <% } %>
+                  <% if (val.disc) { %> 
+                    <td>☑️ </td> 
+                  <% } else { %>
+                    <td> - </td>
+                  <% } %>
+                  <td> <%= val.name %> </td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row align-items-center">
+        <div class="btn-group" role="group">
+          <% allCost.costumes.forEach(function(costume){ %> 
+            <a href= <%= "../../costumes/" + allCost.frameName + "/" + costume._id.toString()%> class="btn btn-primary" > <%= costume.skinName %> </a>
+          <% }); %>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

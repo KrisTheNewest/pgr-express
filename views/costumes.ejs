@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" href="/images/icon32.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PGR Coatings</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+  </head>
+  <body>
+    <header>
+      <%- include('./partials/header.ejs'); %>
+    </header>
+    <main class="container">
+      <p><a href="/insert">check da content</a></p>
+      <a href="/images/calendar-2022327.jpg">🗓️calendar</a>
+      <!-- <img src="../images/calendar-2022327.jpg" alt="help me"> -->
+      <ul class="list-inline">
+        <% names.forEach(function(chara){ %> 
+          <li class="list-inline-item"> <a href= <%= "/costumes/" + chara.frameName + "/" + chara.costumes[0]._id.toString()   %> > <%= chara.frameName + " - " + chara.charaName %> </a></li>
+        <% }); %>
+      </ul>
+    </main>
+  </body>
+</html>
