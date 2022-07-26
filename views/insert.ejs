@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="icon" href="/images/icon32.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PGR Coatings</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+  </head>
+  <body>
+    <header>
+      <%- include('./partials/header.ejs'); %>
+    </header>
+    <main class="container">
+      <% if (typeof(newData) != "undefined") { %>
+        <div class="row"><%- include("./partials/succ.ejs", {inserted: newData} ) %> </div>
+      <% } %>
+      <% if (typeof(errorData) != "undefined") { %>
+        <div class="row"><%- include("./partials/derror.ejs", {inserted: errorData} ) %> </div>
+      <% } %>
+      <form action="" method="post">
+        <h3>Character:</h3>
+        <div class="row">
+          <div class="col">
+            <label for="chara_name" class="form-label">Character name</label>
+            <input id="chara_name" type="text" class="form-control" name="charaName" >
+          </div>
+          <div class="col">
+            <label for="frame_name" class="form-label">Frame name</label>
+            <input id="frame_name" type="text" class="form-control" name="frameName" >
+          </div>
+        </div>
+        <h3>Costume:</h3>
+        <div class="row">
+          <div class="col">
+            <label for="costume_name" class="form-label">Costume name</label>
+            <input id="costume_name" type="text" class="form-control" name="costumes[0][skinName]">
+          </div>
+        </div>
+        <h4>Price:</h4>
+        <div class="row">
+          <div class="col-1">
+            <label for="value" class="form-label">Value</label>
+            <input id="value" type="number" class="form-control" name="costumes[0][price][0][value]" >
+          </div>
+          <div class="col-1">
+            <label for="pick" class="form-label">pick</label>
+            <select class="form-select" id="pick" name="costumes[0][price][0][currency]" >
+              <option value="RC">RC</option>
+              <option value="BC">BC</option>
+              <option value="CB">CB</option>
+              <option value="¥">¥</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="comm" class="form-label">Comment</label>
+            <input id="comm" type="text" class="form-control" name="costumes[0][price][0][name]">
+          </div>
+        </div>
+        <h4><button type="button" class="btn btn-primary" onclick="show()">Primary</button> Event:</h4>
+        <div class="row align-items-end d-none" id="event_form">
+          <div class="col-3">
+            <label for="start" class="form-label">Start</label>
+            <input id="start" type="date" class="form-control" name="costumes[0][event][0][start]" disabled >
+          </div>
+          <div class="col-3">
+            <label for="end" class="form-label">End</label>
+            <input id="end" type="date" class="form-control" name="costumes[0][event][0][finish]" disabled >
+          </div>
+          <div class="col-3">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="costumes[0][event][0][rerun]" value="true" id="flexCheckDefault" disabled >
+              <label class="form-check-label" for="flexCheckDefault">
+                Rerun
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="costumes[0][event][0][disc]" value="true" id="flexCheckDefault2" disabled >
+              <label class="form-check-label" for="flexCheckDefault2">
+                Discounted
+              </label>
+            </div>
+          </div>
+          <div class="col-3">
+            <label for="region" class="form-label">region</label>
+            <select class="form-select" id="region" name="costumes[0][event][0][region]" disabled >
+              <option value="CN">CN</option>
+              <option value="EN">EN</option>
+              <option value="JP">JP</option>
+            </select>
+          </div>
+        <div class="row">
+          <label for="event_name" class="form-label">Comment/event name</label>
+          <input id="event_name" type="text" class="form-control" name="costumes[0][event][0][name]" disabled>
+        </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </main>
+    <nav class="container">
+      <div class="row mt-3">
+        <div class="btn-group justify-content-center" role="group">
+        <a type="button" class="btn btn-primary disabled" style="flex: 1;">All (you are here)</a>
+        <a type="button" class="btn btn-primary" href="/insert/costume" style="flex: 1;">Costume</a>
+        <a type="button" class="btn btn-primary" href="/insert/price" style="flex: 1;">Price</a>
+        <a type="button" class="btn btn-primary" href="/insert/event" style="flex: 1;">Event</a>
+        </div>
+      </div>
+    </nav>
+    <script>
+      function show() {
+        let form = document.getElementById("event_form");
+        form.querySelectorAll("input, select").forEach(item => item.disabled = false);
+        // // form.classList.pop()
+        return form.classList.remove("d-none");
+        // // let dis = document.getElementById("event_form");
+        // console.log(form)
+      }
+    </script>
+  </body>
+</html>
