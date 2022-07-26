@@ -125,3 +125,14 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+.idea
+.vscode
+.htmlhintrc
+PGR.xlsx
+test.html
+package-lock.json
+temp.js
+test.js
+views/users.ejs
+routes/users.js
+views/index.ejs
