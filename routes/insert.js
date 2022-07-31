@@ -4,16 +4,9 @@ var controller = require("../controllers/insertController.js");
 
 const Costume = require("../charasSchema.js");
 
-router.get('/', function(req, res, next) {
-  // console.log(req)
-  res.render('insert');
-});
-router.get('/costume', function(req, res, next) {
-  Costume.find( function (err, docs) {
-    if (err) next(createError(500, err));
-    res.render("insertcostume", {names: docs});
-  }).lean();
-});
+router.get('/', controller.get_all);
+router.get('/costume', controller.get_costume);
+
 router.get('/price', function(req, res, next) {
   res.render("notimplemented");
 });

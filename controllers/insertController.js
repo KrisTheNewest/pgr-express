@@ -3,8 +3,23 @@ var util = require("util")
 var createError = require('http-errors');
 const { body, validationResult } = require('express-validator');
 const logger = require("../logger.js");
-
+	
 const Costume = require("../charasSchema.js");
+
+exports.get_all = [
+	(req, res, next) => {
+		res.render('insert');
+	},
+];
+
+exports.get_costume = [
+	(req, res, next) => {
+		Costume.find( function (err, docs) {
+			if (err) next(createError(500, err));
+			res.render("insertcostume", {names: docs});
+		}).lean();
+	},
+];
 
 exports.insert_all = [
 	(req, res, next) => {
