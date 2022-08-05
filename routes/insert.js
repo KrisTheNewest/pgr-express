@@ -1,28 +1,29 @@
-var express = require('express');
-var router = express.Router();
-var controller = require("../controllers/insertController.js");
+const express = require('express');
+const router = express.Router();
+const allController = require("../controllers/allController");
+// const charaController = require("../controllers/charaController");
+const costumeController = require("../controllers/costumeController");
+const priceController = require("../controllers/priceController");
+const eventController = require("../controllers/eventController");
 
-const Costume = require("../charasSchema.js");
+// landing page for adding entire new chara with costume
+router.get('/', allController.get);
+// handling post requests 
+router.post('/', allController.insert);
 
-router.get('/', controller.get_all);
-router.get('/costume', controller.get_costume);
+// landing page for adding a new costume to existing chara
+router.get('/costume', costumeController.get);
+// handling post requests 
+router.post('/costume', costumeController.insert);
 
-router.get('/price', function(req, res, next) {
-  res.render("notimplemented");
-});
-router.get('/event', function(req, res, next) {
-  res.render("notimplemented");
-});
+// landing page for adding a new price to existing costume
+router.get('/price', priceController.get);
+// handling post requests 
+router.post('/price', priceController.insert);
 
+// landing page for adding a new event to existing costume
+router.get('/event', eventController.get);
+// handling post requests 
+router.post('/event', eventController.insert);
 
-router.post('/', controller.insert_all);
-router.post('/costume', controller.insert_costume);
-router.post('/price', controller.insert_price);
-router.post('/event', controller.insert_event);
-
-// router.post('/character/:id/update', controller.insert_all);
-// router.post('/costume/:id/update', controller.insert_all);
-// router.post('/price/:id/update', controller.insert_all);
-// router.post('/event/:id/update', controller.insert_all);
-//magic.krystina.dev/insert/costume/12345667
 module.exports = router;
