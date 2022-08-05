@@ -5,10 +5,18 @@ const { body, validationResult } = require('express-validator');
 const logger = require("../logger.js");
 	
 const Costume = require("../charasSchema.js");
+const Form = require("../FormLayout.js");
+
+
 
 exports.get_all = [
 	(req, res, next) => {
-		res.render('insert');
+		let insertall = new Form();
+		insertall.displayChara();
+		insertall.displayCostume();
+		insertall.displayPrice();
+		insertall.displayEvent();
+		res.render('unifiedForm', {form: insertall});
 	},
 ];
 
@@ -68,8 +76,16 @@ exports.insert_all = [
 
 	async (req, res, next) => {
 		const errors = validationResult(req);
+		let insertall = new Form();
+		insertall.displayChara();
+		insertall.displayCostume();
+		insertall.displayPrice();
+		insertall.displayEvent();
+
 		if (!errors.isEmpty()) {
-			res.render("insert", {errorData: errors.array()});
+			insertall.setError();
+			insertall.setData(errors.array()); //https://www.youtube.com/watch?v=jeCk5e0YsF0
+			res.render("unifiedForm", {form: insertall});
 			// console.log(errors.array());
 		}
 		else {
@@ -77,7 +93,11 @@ exports.insert_all = [
 			if (!doesCharaExist) {
 				let NewChara = new Costume(req.body);
 				NewChara.save()
-					.then(result => res.render("insert", {newData: result}))
+					.then(result => {
+						insertall.setSucc();
+						insertall.setData(result);
+						res.render("unifiedForm", {form: insertall})
+					})
 					.catch(err => next(createError(500, err)));
 				// NewChara.save((err, ) => {
 				// 	if (err) return logger.error(err);
