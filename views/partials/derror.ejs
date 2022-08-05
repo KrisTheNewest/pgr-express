@@ -1,34 +1,32 @@
 
-<div class="card-header bg-danger text-white">
+<div class="row">
+	<div class="card-header bg-danger text-white">
 	Error'd
+	</div>
+	<div class="card-group text-white bg-danger">
+		<dv class="card bg-danger" style="max-width: 150px">
+				<ul class="list-group bg-danger">
+					<li class="list-group-item list-group-item-danger fw-bold">Your Value:</li>
+					<li class="list-group-item list-group-item-danger fw-bold">Where</li>
+					<li class="list-group-item list-group-item-danger fw-bold">Error:</li>
+				</ul>
+		</dv>
+		<% inserted.forEach(error => { %>
+			<dv class="card bg-danger">
+				<ul class="list-group bg-danger">
+					<li class="list-group-item list-group-item-danger ">
+					<% if (error.value === "") { %>
+					none
+					<% } else { %>
+						<%=error.value%>
+					<% } %>
+					</li>
+					<li class="list-group-item list-group-item-danger "><%=error.param%> </li>
+					<li class="list-group-item list-group-item-danger "><%=error.msg%></li>
+				</ul>
+			</dv>
+		<% }) %>
+	</div>
 </div>
-<%- console.log(inserted) %> 
-<div class="card-group text-white bg-danger">
-	<dv class="card bg-danger" style="max-width: 150px">
 
-			<ul class="list-group bg-danger">
-				<li class="list-group-item list-group-item-danger fw-bold">Your Value:</li>
-				<li class="list-group-item list-group-item-danger fw-bold">Where</li>
-				<li class="list-group-item list-group-item-danger fw-bold">Error:</li>
-			</ul>
 
-	</dv>
-
-	<% inserted.forEach(error => { %>
-		<dv class="card bg-danger">
-
-			<ul class="list-group bg-danger">
-				<li class="list-group-item list-group-item-danger ">
-				<% if (error.value === "") { %>
-				none
-				<% } else { %>
-					<%=error.value%>
-				<% } %>
-				</li>
-				<li class="list-group-item list-group-item-danger "><%=error.param%> </li>
-				<li class="list-group-item list-group-item-danger "><%=error.msg%></li>
-			</ul>
-
-	</dv>
-	<% }) %>
-  </div>

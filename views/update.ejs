@@ -13,10 +13,10 @@
 		<%- include('./partials/header.ejs'); %>
 	</header>
 	<main class="container">
-		<% if (typeof(newData) != "undefined") { %>
+		<% if (newData) { %>
 			<div class="row"><%- include("./partials/succ.ejs", {inserted: newData} ) %> </div>
 		  <% } %>
-		  <% if (typeof(errorData) != "undefined") { %>
+		  <% if (errorData) { %>
 			<div class="row"><%- include("./partials/derror.ejs", {inserted: errorData} ) %> </div>
 		  <% } %>
 		<form action="" method="post">
