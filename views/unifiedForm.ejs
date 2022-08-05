@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="icon" href="/images/icon32.png">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>PGR Coatings</title>
+	<link rel="stylesheet" href="/css/bootstrap.min.css" />
+</head>
+<body>
+	<header>
+		<%- include('./partials/header.ejs'); %>
+	</header>
+	<main class="container">
+			<% if (form.succ)    { %> <%- include("./partials/succ.ejs", {inserted: form.res}) %>  <% } %>
+			<% if (form.error)   { %> <%- include("./partials/derror.ejs", {inserted: form.res}) %> <% } %>
+		<form action="" method="post">
+			<% if (form.chara)   { %> <%- include('./formPartials/charaForm.ejs'); %> <% } %>
+			<% if (form.select)  { %> <%- include('./formPartials/chooseForm.ejs', {names: form.data}); %> <% } %>
+			<% if (form.costume) { %> <%- include('./formPartials/costumeForm.ejs'); %> <% } %>
+			<% if (form.price)   { %> <%- include('./formPartials/priceForm.ejs'); %> <% } %>
+			<% if (form.event)   { %> <%- include('./formPartials/eventForm.ejs', {disabled: form.disbled}); %> <% } %>
+		<div class="row mt-1">
+			<div class="col">
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div>
+		</div>	
+		</form>
+	</main>
+</body>
+</html>
