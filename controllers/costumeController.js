@@ -43,12 +43,12 @@ exports.insert = [
 	},
 
 	//TODO: I AM STUPID
-	//just use ID not name
-	//why did i use names 
-	charaValidator.insert.frameName,
-	costumeValidator.allInsert,
-	priceValidator.allInsert,
-	eventValidator.allInsert,
+	//TODO: just use ID not name
+	//TODO: why did i use names 
+	costumeValidator.insert,
+	priceValidator.insert,
+	eventValidator.all,
+	
 	(req, res, next) => {
 		Costume.find()
 			.then(docs => {
