@@ -1,0 +1,11 @@
+<div class="btn-group" role="group">
+	<!-- how do i reuse code here 🤔 -->
+	<% let list = "/" + link.reduce((t, l) => t + "/" + l.toString()); %> 
+	<a href=<%= "/update" + list %>
+		 type="button" class="btn btn-primary">Edit</a>
+	<a href=<%= "/delete" + list %>
+		type="button" class="btn btn-danger"
+		onclick="show()">
+			<i class="bi bi-trash-fill"></i>
+	</a>
+</div>

@@ -13,23 +13,27 @@
     </header>
     <main class="container">
       <h3>
-        <%=allCost.frameName%><small class="text-muted"> <%=allCost.charaName%></small> <button class="btn btn-primary btn-sm">Edit</button>
+        <%=allCost.frameName%><small class="text-muted"> <%=allCost.charaName%></small> <%- include('./partials/modifyBtn.ejs', {link: ["chara", allCost._id]}); %>
       </h3>
-      <h5><%= currCost.skinName %> <button class="btn btn-primary btn-sm">Edit</button></h5>
+      <h5><%= currCost.skinName %> <%- include('./partials/modifyBtn.ejs', {link: ["costume", allCost._id, currCost._id]}); %>
       <div class="row align-items-start">
         <div class="col">
-          Price <button class="btn btn-primary btn-sm">Edit</button>
+          Price
           <table class="table">
             <thead>
               <tr>
+                <th scope="col"></th>
                 <th scope="col">Price</th>
                 <th scope="col">Currency</th>
                 <th scope="col">Comment</th>
               </tr>
             </thead>
             <tbody>
-              <% currCost.price.forEach(function(val){ %> 
+              <% currCost.price.forEach(function(val) { %> 
                 <tr>
+                  <td>
+                    <%- include('./partials/modifyBtn.ejs', {link: ["price", allCost._id, currCost._id, val._id]}); %>
+                  </td> 
                   <% if (val.value) { %> 
                     <td><%= val.value %> </td> 
                   <% } else { %>
@@ -51,10 +55,11 @@
           </table>
         </div>
         <div class="col">
-          Event <button class="btn btn-primary btn-sm">Edit</button>
+          Event
           <table class="table">
             <thead>
               <tr>
+                <th scope="col"></th>
                 <th scope="col">Region</th>
                 <th scope="col">Start </th>
                 <th scope="col">Finish</th>
@@ -66,6 +71,9 @@
             <tbody>
               <% currCost.event.forEach(function(val){ %> 
                 <tr>
+                  <td>
+                    <%- include('./partials/modifyBtn.ejs', {link: ["event", allCost._id, currCost._id, val._id]}); %>
+                  </td>
                   <td> <%= val.region %> </td>
                   <% if (val.start) { %> 
                     <td><%= val.start %> </td> 
