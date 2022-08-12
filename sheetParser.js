@@ -416,6 +416,22 @@ async function base() {
     //       if (error) throw error;
     //       console.log(docs)
     //   })
+
+    let Costume = require("./charasSchema");
+    Costume.findById("6273eaa250eb5037c4c3c5d4")
+        .then(chara => {
+            if (!chara) return console.log("chara not found");
+            return chara.costumes.id("6273baa250eb5037c4c3c5d5");
+        })
+        .then(costume => {
+            if (!costume) return console.log("costume not found");
+            return costume.price.id("6273eaa250eb5037c4c3c5d6");
+        })
+        .then(price => {
+            if (!price) return console.log("price not found");
+            console.log(price);
+        })
+    .catch(err => console.log(err));
     //Bind connection to error event (to get notification of connection errors)
     mongoose.connection.on('error', err => {
       console.log(err);
