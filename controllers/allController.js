@@ -39,10 +39,10 @@ exports.insert = [
 		next();
 	},
 
-	charaValidator.allInsert,
-	costumeValidator.allInsert,
-	priceValidator.allInsert,
-	eventValidator.allInsert,
+	charaValidator.insert,
+	costumeValidator.insert,
+	priceValidator.insert,
+	eventValidator.all,
 
 	async (req, res, next) => {
 		const errors = validationResult(req);

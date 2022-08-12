@@ -37,7 +37,7 @@ exports.update = [
 	//IT ICNLUDES ID NOT NAME
 	//SICNE NAME CAN CHANGE ID WONT
 	
-	charaValidator.allUpdate,
+	charaValidator.update,
 
 	async (req, res, next) => {
 		const errors = validationResult(req);
