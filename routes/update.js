@@ -20,19 +20,19 @@ router.get('/chara/:chara', charaController.get);
 router.post('/chara/:chara', charaController.update);
 
 // landing page for adding a new costume to existing chara
-router.get('/costume', costumeController.get);
+router.get('/costume/:chara/:costume', costumeController.get);
 // handling post requests 
-router.post('/costume', costumeController.update);
+router.post('/costume/:chara/:costume', costumeController.update);
 
 // landing page for adding a new price to existing costume
-router.get('/price', priceController.get);
+router.get('/price/:chara/:costume/:price', priceController.get);
 // handling post requests 
-router.post('/price', priceController.update);
+router.post('/price/:chara/:costume/:price', priceController.update);
 
 // landing page for adding a new event to existing costume
-router.get('/event', eventController.get);
+router.get('/event/:chara/:costume/:price', eventController.get);
 // handling post requests 
-router.post('/event', eventController.update);
+router.post('/event/:chara/:costume/:price', eventController.update);
 
 module.exports = router;
 
