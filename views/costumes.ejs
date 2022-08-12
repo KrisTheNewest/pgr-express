@@ -16,7 +16,7 @@
       <!-- <img src="../images/calendar-2022327.jpg" alt="help me"> -->
       <ul class="list-inline">
         <% names.forEach(function(chara){ %> 
-          <li class="list-inline-item"> <a href= <%= "/costumes/" + chara.frameName + "/" + chara.costumes[0]._id.toString()   %> > <%= chara.frameName + " - " + chara.charaName %> </a></li>
+          <li class="list-inline-item"> <a href= <%= "/costumes/" + chara.frameName + "/" + chara.costumes[0]._id.toString() %> > <%= chara.frameName + " - " + chara.charaName %> </a></li>
         <% }); %>
       </ul>
     </main>
