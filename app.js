@@ -13,6 +13,7 @@ const usersRouter = require('./routes/users');
 const costumesRouter = require("./routes/costumes.js");
 const insertRouter = require("./routes/insert.js");
 const updateRouter = require("./routes/update.js");
+const deleteRouter = require("./routes/delete.js");
 
 const mongoose = require("mongoose");
 const mongoDB = 'mongodb://127.0.0.1/my_database';
@@ -50,6 +51,7 @@ app.use('/users', usersRouter);
 app.use('/costumes', costumesRouter);
 app.use('/insert', insertRouter);
 app.use("/update", updateRouter);
+app.use("/delete", deleteRouter);
 
 app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')))
 app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')))
