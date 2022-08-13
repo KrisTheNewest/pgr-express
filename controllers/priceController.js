@@ -66,55 +66,54 @@ exports.update = [
 			return next(createError(500, errors.array()));
 		}
 		
-		function findPrice () {
-			return Costume.findById(req.params.chara)
-				.then(chara => {
-					if (!chara) return createError(404, "no chara");
-					let costume = chara.costumes.id(req.params.costume);
-					
-					if (!costume) return createError(404, "no costume");
-					let price = costume.price.id(req.params.price);
+		let oldData = await Costume.findById(req.params.chara)
+			.then(chara => {
+				if (!chara) return createError(404, "no chara");
+				let costume = chara.costumes.id(req.params.costume);
 
-					if (!price) return createError(404, "no price");
+				if (!costume) return createError(404, "no costume");
+				let price = costume.price.id(req.params.price);
 
-					return chara;
-				})
-				.catch(err => createError(500, err));
+				if (!price) return createError(404, "no price");
 
-			// let value;
-			// Costume.findById(req.params.chara)
-			// 	.then(chara => {
-			// 		if (!chara) throw createError(404, "no chara");
-			// 		value = chara;
-			// 		return chara.costumes.id(req.params.costume);
-			// 	})
-			// 	.then(costume => {
-			// 		if (!costume) throw createError(404, "no costume");
-			// 		return chara.costumes.id(req.params.costume);
-			// 	})
-			// 	.then(price => {
-			// 		if (!price) throw createError(404, "no price");
-			// 		return value;
-			// 	})
-			// 	.catch(err => err.status !== 404 ? createError(500, err) : err );
-		}
-		let foundCostume = await findPrice();
-		console.log(req.body);
-		if (foundCostume instanceof Error) return next(foundCostume);
-		let extractPrice = req.body.costumes[0].price[0];
-		await foundCostume.updateOne(
-			{ "$set": { "costumes.$[costId].price.$[priceId]": {...extractPrice, _id: req.params.price}}},
+				return [chara, price.toObject()];
+			})
+			.catch(err => createError(500, err));
+
+		// console.log(oldData);
+		if (oldData instanceof Error) return next(oldData);
+		// res.redirect("back");
+		// return;
+		let [character, oldPrice] = oldData;
+		console.log(character)
+		console.log(oldPrice)
+		let newPrice = {...oldPrice, ...req.body, _id: req.params.price};
+		// console.log(newPrice)
+		await character.updateOne(
+			{ "$set": { "costumes.$[costId].price.$[priceId]": newPrice}},
 			{ "arrayFilters": 
 				[{"costId._id": req.params.costume }, {"priceId._id": req.params.price}]
 			},
 			
-			(err, idk) => { 
+			(err, changes) => { 
 				if (err) throw err;
-				// console.log(idk)
+				console.log(changes)
 				res.redirect("back");
-				// console.log(foundCostume.costumes[0].price[0]);
 			}
 		);
+
+		// .then(chara => {
+
+
+		// 	return chara;
+		// })
+		// .catch(err => createError(500, err));
+		// let foundCostume = await findPrice();
+		// console.log(req.body);
+		// if (foundCostume instanceof Error) return next(foundCostume);
+
+		// let extractPrice = req.body.costumes[0].price[0];
+
 		// await foundCostume.save()
 		// .then(() => {
 		// 	console.log("success?");
