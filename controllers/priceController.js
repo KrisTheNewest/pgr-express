@@ -7,6 +7,8 @@ const logger = require("../logger.js");
 const Costume = require("../charasSchema.js");
 const Form = require("../FormLayout.js");
 
+const findSubDoc = require("../findSubDoc.js");
+
 const charaValidator = require("../validators/charaValidator");
 const costumeValidator = require("../validators/costumeValidator");
 const priceValidator = require("../validators/priceValidator");
@@ -66,27 +68,15 @@ exports.update = [
 			return next(createError(500, errors.array()));
 		}
 		
-		let oldData = await Costume.findById(req.params.chara)
-			.then(chara => {
-				if (!chara) return createError(404, "no chara");
-				let costume = chara.costumes.id(req.params.costume);
-
-				if (!costume) return createError(404, "no costume");
-				let price = costume.price.id(req.params.price);
-
-				if (!price) return createError(404, "no price");
-
-				return [chara, price.toObject()];
-			})
-			.catch(err => createError(500, err));
-
+		let oldData = await findSubDoc(Costume, req.params);//.then(data => data).catch(err => next(createError(err.status || 500, err)))
 		// console.log(oldData);
 		if (oldData instanceof Error) return next(oldData);
 		// res.redirect("back");
 		// return;
+		// console.log(oldData);
 		let [character, oldPrice] = oldData;
-		console.log(character)
-		console.log(oldPrice)
+		// console.log(character)
+		// console.log(oldPrice)
 		let newPrice = {...oldPrice, ...req.body, _id: req.params.price};
 		// console.log(newPrice)
 		await character.updateOne(
@@ -97,8 +87,8 @@ exports.update = [
 			
 			(err, changes) => { 
 				if (err) throw err;
-				console.log(changes)
-				res.redirect("back");
+				//console.log(changes)
+				res.redirect(`/costumes/${character.frameName}/${req.params.costume}`);
 			}
 		);
 
