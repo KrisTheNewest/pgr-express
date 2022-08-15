@@ -1,0 +1,32 @@
+// MongoDB Playground
+// To disable this template go to Settings | MongoDB | Use Default Template For Playground.
+// Make sure you are connected to enable completions and to be able to run a playground.
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+
+// Select the database to use.
+use('my_database')
+let newPrice = {
+	"name": "Discounted again",
+	"currency": "RC",
+	"value": 128
+}
+db.characters.findOneAndUpdate(
+	{"charaName": "Luna"}, 
+	{ "$pull":  {"costumes.$[costId].price": {"name": "new insert"}}},
+	{ "arrayFilters": 
+		[{"costId.skinName": "1" }]
+	},
+	{"returnNewDocument": "true"}
+)
+// db.students2.findOneAndUpdate(
+//    { _id : 1 },
+//    { $set: { "grades.$[elem].mean" : 100 } },
+//    { arrayFilters: [ { "elem.grade": { $gte: 85 } } ] }
+// )
+// db.flightData.update(
+// 	{_id:ObjectId("611aaa554a0269583c8d81b1")},
+// 	{$set:{"delayed":false}}
+// 	)
+// The drop() command destroys all data from a collection.
+// Make sure you run it against the correct database and collection.
+
