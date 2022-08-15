@@ -1,31 +1,8 @@
 <div class="btn-group" role="group">
 	<!-- how do i reuse code here 🤔 -->
-	<% let lmao = "/" + link.reduce((t, l) => t + "/" + l.toString()); %> 
-	<a href=<%= "/update" + lmao %>
-		 type="button" class="btn btn-primary btn-sm">Edit</a>
-	<!-- <a href= "/delete" + lmao %>
-		type="button" class="btn btn-danger"
-		onclick="sillyBilly()">
-			<i class="bi bi-trash-fill"></i>
-	</a> -->
-	<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-		<i class="bi bi-trash-fill"></i>
+	<% let lmao = "/" + link.reduce((t, l) => t + "/" + l.toString()); %>
+	<a href=<%= "/update" + lmao %> type="button" class="btn btn-primary btn-sm">Edit</a>
+	<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="passData('/delete' + '<%-lmao%>','<%-link[0]%>' )">
+	\_/
 	</button>
-</div>
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
-	<div class="modal-dialog">
-	  <div class="modal-content">
-	  <div class="modal-header">
-		<h5 class="modal-title" id="staticBackdropLabel">WARNING</h5>
-		<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-	  </div>
-	  <div class="modal-body">
-		ARE YOU SURE YOU WANT TO DELETE ||placeholder||?<br>THIS CANNOT BE UNDONE! (for now)
-	  </div>
-	  <div class="modal-footer">
-		<button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
-		<a href=<%= "/delete" + lmao %> type="button" class="btn btn-danger">Understood</a>
-	  </div>
-	  </div>
-	</div>
 </div>
