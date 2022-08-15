@@ -116,18 +116,16 @@
         // // let dis = document.getElementById("event_form");
         // console.log(form)
       }
-
-		let existingForm = document.getElementById("chara_select");
-		// let insertForm = document.getElementById("insert_costume");
-		let chara = document.getElementById("chara");
-		existingForm.addEventListener('change', function() {
-			// const index = existingForm.selectedIndex;
-			// Add that data to the <p>
-				chara.innerHTML = 'selected item: ' + existingForm.options[existingForm.selectedIndex].value; 
-			// insertForm.action = existingForm.options[existingForm.selectedIndex].value + "/add/";
-			// console.log(insertForm.action)
-		});
-
+      let existingForm = document.getElementById("chara_select");
+      // let insertForm = document.getElementById("insert_costume");
+      let chara = document.getElementById("chara");
+      existingForm.addEventListener('change', function() {
+        // const index = existingForm.selectedIndex;
+        // Add that data to the <p>
+          chara.innerHTML = 'selected item: ' + existingForm.options[existingForm.selectedIndex].value; 
+        // insertForm.action = existingForm.options[existingForm.selectedIndex].value + "/add/";
+        // console.log(insertForm.action)
+      });
     </script>
   </body>
 </html>
