@@ -15,16 +15,16 @@ const priceValidator = require("../validators/priceValidator");
 const eventValidator = require("../validators/eventValidator");
 
 exports.get = [
-	// (req, res, next) => {
-	// 	res.render("notimplemented");
-	// },
 	(req, res, next) => {
-		let insertall = new Form();
-		// insertall.chooseChara();
-		insertall.displayPrice();
-
-		res.render('unifiedForm', {form: insertall});
+		res.render("notimplemented");
 	},
+	// (req, res, next) => {
+	// 	let insertall = new Form();
+	// 	// insertall.chooseChara();
+	// 	insertall.displayPrice();
+
+	// 	res.render('unifiedForm', {form: insertall});
+	// },
 ];
 
 exports.insert = [
@@ -91,56 +91,6 @@ exports.update = [
 				res.redirect(`/costumes/${character.frameName}/${req.params.costume}`);
 			}
 		);
-
-		// .then(chara => {
-
-
-		// 	return chara;
-		// })
-		// .catch(err => createError(500, err));
-		// let foundCostume = await findPrice();
-		// console.log(req.body);
-		// if (foundCostume instanceof Error) return next(foundCostume);
-
-		// let extractPrice = req.body.costumes[0].price[0];
-
-		// await foundCostume.save()
-		// .then(() => {
-		// 	console.log("success?");
-		// 	res.redirect("back");
-		// })
-		// .catch(err => console.error(err));
-			// foundCostume.updateOne(
-			// 	// { "frameName" : "Zero" }, 
-			// 	{"charaName": "help me"}
-			// , 
-			// (err, idk) => {
-			// 	if (err) throw err;
-			// 	console.log(idk)
-			// }
-			// );
-			// console.log(util.inspect(foundCostume, false, null, true /* enable colors */));
-		/*
-		{ 
-		"$set": {[`rosters.$[outer].schedule.${editDay}.${startPerieod}`]: value} 
-		},
-		{ 
-		"arrayFilters": [{ "outer._id": roasterId }]
-		},
-		*/
-		// 	{
-		// 	costumes: [{
-		// 		_id: req.params.costume,
-		// 		price: {
-		// 			_id: req.params.price,
-		// 			...extractPrice,
-		// 		}
-		// 	}]
-		// }
-
-
-		
-		
 	},
 	// (req, res, next) => {
 	// 	res.redirect("back");
@@ -148,5 +98,37 @@ exports.update = [
 ];
 
 exports.delete = [
-	
+	param("chara", "need a valid chara ID")
+		.isMongoId(),
+	param("costume", "need a valid costume ID")
+		.isMongoId(),
+	param("price", "need a valid price ID")
+		.isMongoId(),
+	async (req, res, next) => {
+		// let filtered = Object.fromEntries(
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			console.log("errors", errors.array());
+			return next(createError(500, errors.array()));
+		}
+		let oldData = await findSubDoc(Costume, req.params);//.then(data => data).catch(err => next(createError(err.status || 500, err)))
+		// console.log(oldData);
+		if (oldData instanceof Error) return next(oldData);
+		// res.redirect("back");
+		// return;
+		// console.log(oldData);
+		let [character] = oldData;
+		await character.updateOne(
+			// {"charaName": "Luna"}, 
+			{ "$pull":  {"costumes.$[costId].price": {_id: req.params.price}}},
+			{ "arrayFilters": 
+				[{"costId._id": req.params.costume}]
+			},
+			(err, changes) => { 
+				if (err) throw err;
+				//console.log(changes)
+				res.redirect(`/costumes/${character.frameName}/${req.params.costume}`);
+			}
+		);
+	},	
 ];

@@ -107,5 +107,7 @@ exports.update = [
 ];
 
 exports.delete = [
-	
+	(req, res, next) => {
+		res.render("unavailable");
+	},
 ];
