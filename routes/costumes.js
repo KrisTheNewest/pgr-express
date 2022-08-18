@@ -22,6 +22,10 @@ router.get('/calendar', function(req, res) {
   // console.log(req.params)
   res.send(`<img src=../images/calendar-2022327.jpg alt="stock photo of a calendar">`);
 });
+// TODO: MODIFY IT FOR ID!!!!!!!!!!!!!
+// TODO: MODIFY IT FOR ID!!!!!!!!!!!!!
+// TODO: MODIFY IT FOR ID!!!!!!!!!!!!!
+// possibly check for both id AND name + archival fan TL 
 router.get("/:chara/:costume", function(req, res, next) {
   // console.log(req.params)
   Costume.findOne({"frameName" : req.params.chara}, function(err, frame) {
