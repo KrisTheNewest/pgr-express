@@ -15,16 +15,16 @@ const priceValidator = require("../validators/priceValidator");
 const eventValidator = require("../validators/eventValidator");
 
 exports.get = [
-	(req, res, next) => {
-		res.render("notimplemented");
-	},
 	// (req, res, next) => {
-	// 	let insertall = new Form();
-	// 	// insertall.chooseChara();
-	// 	insertall.displayPrice();
-
-	// 	res.render('unifiedForm', {form: insertall});
+	// 	res.render("notimplemented");
 	// },
+	(req, res, next) => {
+		let insertall = new Form();
+		// insertall.chooseChara();
+		insertall.displayPrice();
+
+		res.render('unifiedForm', {form: insertall});
+	},
 ];
 
 exports.insert = [
@@ -53,6 +53,9 @@ exports.update = [
 		})
 		next();
 	},	
+
+	// TODO: NEED TO VALIDATE
+	// TODO: USE/MAKE A REUSABLE FILE 
 
 	param("chara", "need a valid chara ID")
 		.isMongoId(),
