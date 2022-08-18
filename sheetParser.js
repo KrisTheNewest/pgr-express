@@ -440,11 +440,12 @@ async function base() {
     let Chara = require("./charasSchema");
     let test = require("./findSubDoc");
     let params = {
-        chara: "6273eaa250eb5037c4c3c5de",
-        costume: "6273eaa250eb5037c4c3c5dx",
-        event: "6273eaa250eb5037c4c3c5e1"
+        chara: "6273eaa250eb5037c4c3c5f4",
+        costume: "6273eaa250eb5037c4c3c5f5",
+        // event: "6273eaa250eb5037c4c3c5f7"
     }
-     await test(Chara, params).then(res => console.log(res))
+    
+    await test(Chara, params).then(res => console.log(res))
     await mongoose.disconnect()
   }
   base()
