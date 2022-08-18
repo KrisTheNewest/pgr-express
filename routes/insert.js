@@ -12,7 +12,7 @@ router.get('/', allController.get);
 router.post('/', allController.insert);
 
 // landing page for adding a new costume to existing chara
-router.get('/costume', costumeController.get);
+router.get('/costume', costumeController.get_insert);
 // handling post requests 
 router.post('/costume', costumeController.insert);
 
