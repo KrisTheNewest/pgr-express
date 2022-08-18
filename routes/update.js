@@ -20,7 +20,7 @@ router.get('/chara/:chara', charaController.get);
 router.post('/chara/:chara', charaController.update);
 
 // landing page for adding a new costume to existing chara
-router.get('/costume/:chara/:costume', costumeController.get);
+router.get('/costume/:chara/:costume', costumeController.get_update);
 // handling post requests 
 router.post('/costume/:chara/:costume', costumeController.update);
 
