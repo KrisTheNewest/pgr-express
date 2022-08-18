@@ -15,8 +15,9 @@ module.exports = function findSubDoc(Schema, params) {
 			let costume = chara.costumes.id(params.costume);
 		
 			if (!costume) return createError(404, "no costume");
-			let deepSubDoc = params.price ? costume.price : costume.event;
+			if (!params.price && !params.event) return [chara, costume.toObject()];
 
+			let deepSubDoc = params.price ? costume.price : costume.event;
 			deepSubDoc = deepSubDoc.id(params.price || params.event);
 
 			if (!deepSubDoc) return createError(404, params.price ? "no price" : "no event");
