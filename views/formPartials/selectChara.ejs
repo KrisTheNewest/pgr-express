@@ -1,4 +1,4 @@
-<select class="form-select" id="chara_select" name="frameName">
+<select class="form-select" id="chara_select" name="_id">
 	<option selected>Select a character</option>
 	<% names.forEach(function(chara){ %> 
 	  <option value= <%= chara._id.toString() %>  ><%= chara.frameName  %> </option>
