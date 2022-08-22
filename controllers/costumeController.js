@@ -120,6 +120,76 @@ exports.get_update = [
 
 exports.update = [
 
+	(req, res, next) => {
+		// let filtered = Object.fromEntries(
+		req.body = req.body.costumes[0]; //TODO: try automating this
+		// Object.entries(req.body).forEach(([key, item]) => {
+		// 	if	(item.length === 0) {
+		// 		delete req.body[key]; 
+		// 	}
+		// })
+		console.log(req.body)
+		next();
+	},	
+	//display just field 
+	costumeValidator.update,
+	// find if exists
+	// loop over all costumes
+	// loop over provided 
+	// check if there any matches
+	// check if the name doubles
+	// squash the documents
+
+
+	async (req, res, next) => {
+		// let doesCharaExist = await Costume.findById(req.params.chara);
+		// if (!doesCharaExist) return next(createError(404));
+		// let errors = [];
+			//TODO: NEEDS CALLBACK
+			let oldData = await findSubDoc(Costume, req.params);//.then(data => data).catch(err => next(createError(err.status || 500, err)))
+			// console.log(oldData); 
+			//TODO: NEEDS CALLBACK
+			if (oldData instanceof Error) return next(oldData);
+			// res.redirect("back");
+			// return;
+			// console.log(oldData);
+			//TODO: NEEDS CALLBACK
+			let [character] = oldData;
+			if (character.costumes.some(item =>
+				item.skinName === req.body.skinName)) return next(createError(409));
+			// console.log(character)
+			// console.log(oldPrice)
+
+			await character.updateOne(
+				{ "$set": { "costumes.$[costId].skinName": req.body.skinName}},
+				{ "arrayFilters": 
+					[{"costId._id": req.params.costume },]
+				},
+				
+				(err, changes) => { 
+					if (err) throw err;
+					//console.log(changes)
+					res.redirect(`/costumes/${character.frameName}/${req.params.costume}`);
+				}
+			);
+		// req.body.costumes.forEach(reqCos => {
+		// 	// if (!doesCharaExist.costumes.some(item => 
+		// 	// 	item.skinName === reqCos.skinName)) { 
+
+		// 	// 	}
+		// 	doesCharaExist.costumes.forEach(costume => {
+		// 		if (reqCos.skinName === costume.skinName) return /* error doubling name*/;
+
+		// 		if (reqCos._id === costume._id) {
+		// 			costume.skinName = reqCos.skinName;
+		// 		}
+		// 		else return// no costume
+		// 	});
+		// })
+
+	},
+
+
 ];
 
 exports.delete = [
