@@ -25,12 +25,12 @@ router.get('/costume/:chara/:costume', costumeController.get_update);
 router.post('/costume/:chara/:costume', costumeController.update);
 
 // landing page for adding a new price to existing costume
-router.get('/price/:chara/:costume/:price', priceController.get);
+router.get('/price/:chara/:costume/:price', priceController.get_update);
 // handling post requests 
 router.post('/price/:chara/:costume/:price', priceController.update);
 
 // landing page for adding a new event to existing costume
-router.get('/event/:chara/:costume/:price', eventController.get);
+router.get('/event/:chara/:costume/:price', eventController.get_update);
 // handling post requests 
 router.post('/event/:chara/:costume/:price', eventController.update);
 
