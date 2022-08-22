@@ -1,42 +1,46 @@
 module.exports = class Form {
-	chara   = false;
-	costume = false;
-	price   = false;
-	event   = false;
-	select  = false;
-	disbled = false;
-	error   = false;
-	succ    = false;
-	error   = false;
-	succ    = false;
+	chara      = false;
+	costume    = false;
+	price      = false;
+	event      = false;
+	schara     = false;
+    scost      = false;
+	disbled    = false;
+	error      = false;
+	succ       = false;
+	error      = false;
+	succ       = false;
 
     displayChara() {
-        this.chara   = true;
+        this.chara      = true;
     }
 	displayCostume() {
-        this.costume = true;
+        this.costume    = true;
     }
 	displayPrice() {
-        this.price   = true;
+        this.price      = true;
     }
 	displayEvent() {
-        this.event   = true;
+        this.event      = true;
     }
-	chooseChara() {
-        this.select  = true;
+	selectChara() {
+        this.schara     = true;
+    }
+    selectCostume() {
+        this.scost      = true;
     }
 	disableFields() {
-		this.disbled = true;
+		this.disbled    = true;
 	}
     setError(res) {
-        this.error   = true;
-        this.res     = res;
+        this.error      = true;
+        this.res        = res;
     }
     setSucc(res) {
-        this.succ    = true;
-        this.res     = res;
+        this.succ       = true;
+        this.res        = res;
     }
 	setData(data) {
-        this.data    = data;
+        this.data       = data;
     }
-};
+}

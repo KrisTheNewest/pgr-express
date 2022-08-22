@@ -13,14 +13,15 @@
 		<%- include('./partials/header.ejs'); %>
 	</header>
 	<main class="container">
-			<% if (form.succ)    { %> <%- include("./partials/succ.ejs", {inserted: form.res}) %>  <% } %>
-			<% if (form.error)   { %> <%- include("./partials/derror.ejs", {inserted: form.res}) %> <% } %>
+			<% if (form.succ)		{ %> <%- include("./partials/succ.ejs", {inserted: form.res})      			%> <% } %>
+			<% if (form.error)		{ %> <%- include("./partials/derror.ejs", {inserted: form.res})      		%> <% } %>
 		<form action="" method="post">
-			<% if (form.chara)   { %> <%- include('./formPartials/charaForm.ejs'); %> <% } %>
-			<% if (form.select)  { %> <%- include('./formPartials/chooseForm.ejs', {names: form.data}); %> <% } %>
-			<% if (form.costume) { %> <%- include('./formPartials/costumeForm.ejs'); %> <% } %>
-			<% if (form.price)   { %> <%- include('./formPartials/priceForm.ejs'); %> <% } %>
-			<% if (form.event)   { %> <%- include('./formPartials/eventForm.ejs', {disabled: form.disbled}); %> <% } %>
+			<% if (form.chara)		{ %> <%- include('./formPartials/charaForm.ejs'); 							%> <% } %>
+			<% if (form.schara)		{ %> <%- include('./formPartials/selectChara.ejs', {names: form.data});		%> <% } %>
+			<% if (form.scost)		{ %> <%- include('./formPartials/selectCostume.ejs', {names: form.data});   %> <% } %>
+			<% if (form.costume)	{ %> <%- include('./formPartials/costumeForm.ejs'); 						%> <% } %>
+			<% if (form.price)		{ %> <%- include('./formPartials/priceForm.ejs'); 							%> <% } %>
+			<% if (form.event)		{ %> <%- include('./formPartials/eventForm.ejs', {disabled: form.disbled}); %> <% } %>
 		<div class="row mt-1">
 			<div class="col">
 				<button type="submit" class="btn btn-primary">Submit</button>
