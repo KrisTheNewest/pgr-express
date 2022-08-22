@@ -1,10 +1,7 @@
-var express = require('express');
-var router = express.Router();
-var createError = require('http-errors');
-const logger = require("../logger.js")
+const express = require('express');
+const router = express.Router();
 
-const Costume = require("../charasSchema.js");
-
+const indexController = require("../controllers/indexController.js");
 //Set up default mongoose connection
 // function create404(errMsg) {
 //   let err404 = new Error(errMsg);
@@ -26,23 +23,7 @@ router.get('/calendar', function(req, res) {
 // TODO: MODIFY IT FOR ID!!!!!!!!!!!!!
 // TODO: MODIFY IT FOR ID!!!!!!!!!!!!!
 // possibly check for both id AND name + archival fan TL 
-router.get("/:chara/:costume", function(req, res, next) {
-  // console.log(req.params)
-  Costume.findOne({"frameName" : req.params.chara}, function(err, frame) {
-     if (err) next(createError(500, err));
-    // console.log(frame)
-    if (frame === null) return next(createError(404, 'No character found!')); //
-    let costumeFindById = frame.costumes.id(req.params.costume);
-    if (costumeFindById === null) return next(createError(404, 'No costume found!')); //
-    res.render("costume", {currCost: costumeFindById, allCost: frame}); //(frame.costumes.id(req.params.costume)===null) ? throw  : req.body.genre,
-    // res.send()
-  });
-});
-router.get('/', function(req, res, next) {
-  Costume.find( function (err, docs) {
-    if (err) next(createError(500, err));
-    res.render("costumes", {names: docs});
-  }).lean();
-});
+router.get("/:chara/:costume", indexController.costume);
+router.get('/', indexController.index);
 
 module.exports = router;
