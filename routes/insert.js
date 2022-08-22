@@ -17,12 +17,12 @@ router.get('/costume', costumeController.get_insert);
 router.post('/costume', costumeController.insert);
 
 // landing page for adding a new price to existing costume
-router.get('/price', priceController.get);
+router.get('/price', priceController.get_insert);
 // handling post requests 
 router.post('/price', priceController.insert);
 
 // landing page for adding a new event to existing costume
-router.get('/event', eventController.get);
+router.get('/event', eventController.get_insert);
 // handling post requests 
 router.post('/event', eventController.insert);
 

@@ -1,43 +1,89 @@
-var express = require('express');
-var util = require("util")
-var createError = require('http-errors');
+const express = require('express');
+const util = require("util")
+const createError = require('http-errors');
 const { body, param, validationResult } = require('express-validator');
 const logger = require("../logger.js");
 	
 const Costume = require("../charasSchema.js");
 const Form = require("../FormLayout.js");
 
+const findSubDoc = require("../findSubDoc.js");
+
 const charaValidator = require("../validators/charaValidator");
 const costumeValidator = require("../validators/costumeValidator");
 const priceValidator = require("../validators/priceValidator");
 const eventValidator = require("../validators/eventValidator");
 
-exports.get/*_insert*/ = [
-	(req, res, next) => {
-		res.render("notimplemented");
-	},
+class InsertForm extends Form {
+	schara = true;
+	scost  = true;
+	event  = true;
+}
+
+exports.get_insert = [
 	// (req, res, next) => {
-	// let insertall = new Form();
-	// insertall.selectChara();
-	// insertall.selectCostume();
-	// insertall.displayEvent();
-	// res.render('unifiedForm', {form: insertall});
+	// 	res.render("notimplemented");
 	// },
+	(req, res, next) => {
+		Costume.find( function (err, docs) {
+			if (err) next(createError(500, err));
+			let insertEvent = new InsertForm();
+			insertEvent.setData(docs);
+			res.render('unifiedForm', {form: insertEvent});
+		}).lean();
+	},
 ];
 
 exports.insert = [
 
+	body("_id", "need a valid chara ID")
+		.isMongoId(),
+	body("costumes.*._id", "need a valid costume ID")
+		.isMongoId(),
+	eventValidator.all,
+
+	(req, res, next) => {
+		Costume.find()
+			.then(async docs => {
+				let insertEvent = new InsertForm();
+				insertEvent.setData(docs);
+				const errors = validationResult(req);
+				if (!errors.isEmpty()) {
+					insertEvent.setError(errors.array());
+					return res.render("unifiedForm", {form: insertEvent});
+				}
+				// let check = await findSubDoc(Costume, )
+				let selectedChara = docs.find(i => i._id.toString() === req.body._id);
+				if (!selectedChara) return next(createError(404, "no chara"));
+				let selectedCostume = selectedChara.costumes.find(i => i._id.toString() === req.body.costumes[0]._id);
+				if (!selectedCostume) return next(createError(404, "no costume"));
+				await selectedChara.updateOne(
+					// {"charaName": "Luna"}, 
+					{ "$push":  {"costumes.$[costId].event": req.body.costumes[0].event[0]}},
+					{ "arrayFilters": 
+						[{"costId._id": req.body.costumes[0]._id}]
+					},
+					(err, changes) => { 
+						if (err) throw err;
+						//console.log(changes)
+						res.redirect(`/costumes/${req.body._id}/${req.body.costumes[0]._id}`);
+					}
+				);
+				// console.log(util.inspect(req.body, false, Infinity, true));
+				// res.redirect("back");	
+			})
+	},
 ];
 
-exports.get/*_update*/ = [
-	(req, res, next) => {
-		res.render("notimplemented");
-	},
+exports.get_update = [
 	// (req, res, next) => {
-	// 	let insertall = new Form();
-	// 	insertall.displayEvent();
-	// 	res.render('unifiedForm', {form: insertall});
+	// 	res.render("notimplemented");
 	// },
+	(req, res, next) => {
+		let updateEvent = new Form();
+		updateEvent.displayEvent();
+		res.render('unifiedForm', {form: updateEvent});
+	},
 ];
 
 
