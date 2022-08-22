@@ -26,7 +26,7 @@ exports.get_insert = [
 		Costume.find( function (err, docs) {
 			if (err) next(createError(500, err));
 			let insertCostume = new charaForm();
-			insertCostume.chooseChara();
+			insertCostume.selectChara();
 			insertCostume.setData(docs);
 			res.render('unifiedForm', {form: insertCostume});
 		}).lean();
@@ -59,7 +59,7 @@ exports.insert = [
 				insertCostume.setData(docs);
 				const errors = validationResult(req);
 				if (!errors.isEmpty()) {
-					insertCostume.chooseChara();
+					insertCostume.selectChara();
 					insertCostume.setError(errors.array());
 					res.render("unifiedForm", {form: insertCostume});
 				}

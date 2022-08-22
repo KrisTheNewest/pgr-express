@@ -12,21 +12,34 @@ const costumeValidator = require("../validators/costumeValidator");
 const priceValidator = require("../validators/priceValidator");
 const eventValidator = require("../validators/eventValidator");
 
-exports.get = [
+exports.get/*_insert*/ = [
 	(req, res, next) => {
 		res.render("notimplemented");
 	},
 	// (req, res, next) => {
-	// 	let insertall = new Form();
-	// 	insertall.chooseChara();
-	// 	insertall.displayEvent();
-	// 	res.render('unifiedForm', {form: insertall});
+	// let insertall = new Form();
+	// insertall.selectChara();
+	// insertall.selectCostume();
+	// insertall.displayEvent();
+	// res.render('unifiedForm', {form: insertall});
 	// },
 ];
 
 exports.insert = [
 
 ];
+
+exports.get/*_update*/ = [
+	(req, res, next) => {
+		res.render("notimplemented");
+	},
+	// (req, res, next) => {
+	// 	let insertall = new Form();
+	// 	insertall.displayEvent();
+	// 	res.render('unifiedForm', {form: insertall});
+	// },
+];
+
 
 exports.update = [
 	(req, res, next) => {
