@@ -14,13 +14,15 @@ const costumeValidator = require("../validators/costumeValidator");
 const priceValidator = require("../validators/priceValidator");
 const eventValidator = require("../validators/eventValidator");
 
-exports.get = [
+exports.get/*_insert*/ = [
 	// (req, res, next) => {
 	// 	res.render("notimplemented");
 	// },
 	(req, res, next) => {
 		let insertall = new Form();
-		// insertall.chooseChara();
+		insertall.selectChara();
+		insertall.selectCostume();
+		//insertall.chooseCostume(); this will be fun
 		insertall.displayPrice();
 
 		res.render('unifiedForm', {form: insertall});
@@ -41,6 +43,20 @@ exports.insert = [
 		next();
 	},
 ];
+
+exports.get/*_update*/ = [
+	// (req, res, next) => {
+	// 	res.render("notimplemented");
+	// },
+	(req, res, next) => {
+		let insertall = new Form();
+		// insertall.chooseChara();
+		insertall.displayPrice();
+
+		res.render('unifiedForm', {form: insertall});
+	},
+];
+
 
 exports.update = [
 	(req, res, next) => {
