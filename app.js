@@ -9,7 +9,6 @@ const logger = require("./logger.js");
 const favicon = require('serve-favicon')
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 const costumesRouter = require("./routes/costumes.js");
 const insertRouter = require("./routes/insert.js");
 const updateRouter = require("./routes/update.js");
@@ -22,7 +21,7 @@ const mongoDB = 'mongodb://127.0.0.1/my_database';
 mongoose.connect(mongoDB, err => {
   if (err) console.error(err);
   console.log("connected");
- })//.then(() => .catch(err =>console.error(err));
+})//.then(() => .catch(err =>console.error(err));
 mongoose.set('debug', true);
 
 const app = express();
@@ -47,7 +46,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/costumes', costumesRouter);
 app.use('/insert', insertRouter);
 app.use("/update", updateRouter);
