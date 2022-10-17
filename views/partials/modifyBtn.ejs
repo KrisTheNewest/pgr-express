@@ -1,7 +1,12 @@
 <div class="btn-group" role="group">
 	<!-- how do i reuse code here 🤔 -->
 	<% let lmao = "/" + link.reduce((t, l) => t + "/" + l.toString()); %>
-	<a href=<%= "/update" + lmao %> type="button" class="btn btn-primary btn-sm">Edit</a>
+	<a href=<%="/insert/" + link[0]%> type="button" class="btn btn-success btn-sm">
+	+
+	</a> 
+	<a href=<%= "/update" + lmao %> type="button" class="btn btn-primary btn-sm">
+	Edit
+	</a>
 	<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="passData('/delete' + '<%-lmao%>','<%-link[0]%>' )">
 	\_/
 	</button>
