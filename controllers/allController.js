@@ -74,8 +74,14 @@ exports.insert = [
 
 exports.update = [
 //not possbile
+(req, res, next) => {
+	res.render("unavailable");
+},
 ];
 
 exports.delete = [
 //notpossible
+(req, res, next) => {
+	res.render("unavailable");
+},
 ];
