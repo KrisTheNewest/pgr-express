@@ -9,9 +9,6 @@ const Form = require("../FormLayout.js");
 
 const findSubDoc = require("../findSubDoc.js");
 
-const charaValidator = require("../validators/charaValidator");
-const costumeValidator = require("../validators/costumeValidator");
-const priceValidator = require("../validators/priceValidator");
 const eventValidator = require("../validators/eventValidator");
 
 class InsertForm extends Form {
@@ -21,9 +18,6 @@ class InsertForm extends Form {
 }
 
 exports.get_insert = [
-	// (req, res, next) => {
-	// 	res.render("notimplemented");
-	// },
 	(req, res, next) => {
 		Costume.find( function (err, docs) {
 			if (err) next(createError(500, err));
@@ -76,9 +70,6 @@ exports.insert = [
 ];
 
 exports.get_update = [
-	// (req, res, next) => {
-	// 	res.render("notimplemented");
-	// },
 	(req, res, next) => {
 		let updateEvent = new Form();
 		updateEvent.displayEvent();
