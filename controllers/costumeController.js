@@ -1,15 +1,13 @@
-var express = require('express');
-var util = require("util")
-var createError = require('http-errors');
-const { body, validationResult } = require('express-validator');
-const logger = require("../logger.js");
+
+const util = require("util")
+const createError = require('http-errors');
+const { validationResult, } = require('express-validator');
 
 const findSubDoc = require("../findSubDoc.js");
 	
 const Costume = require("../charasSchema.js");
 const Form = require("../FormLayout.js");
 
-const charaValidator = require("../validators/charaValidator");
 const costumeValidator = require("../validators/costumeValidator");
 const priceValidator = require("../validators/priceValidator");
 const eventValidator = require("../validators/eventValidator");
@@ -36,11 +34,10 @@ exports.get_insert = [
 exports.insert = [
 	(req, res, next) => {
 		req.body.costumes.forEach(element => {
-		  if  (!Array.isArray(element.event)) {
+		  if (!Array.isArray(element.event)) {
 			element.event = [{}];
 		  }
 		});
-		// req.body = {"hello": [{"hi": "123"}, {"hi": "321"}]};
 		console.log("first", util.inspect(req.body, false, null, true /* enable colors */));
 		next();
 	},
@@ -56,7 +53,7 @@ exports.insert = [
 		Costume.find()
 			.then(docs => {
 				let insertCostume = new charaForm();
-				insertCostume.setData(docs);
+					insertCostume.setData(docs);
 				const errors = validationResult(req);
 				if (!errors.isEmpty()) {
 					insertCostume.selectChara();
@@ -88,9 +85,9 @@ exports.insert = [
 
 						// i dunno if this is necesarry, maybe just do the data...?
 						let atrocity = {}
-						atrocity.frameName = selectedChara.frameName;
-						atrocity.charaName = selectedChara.charaName;
-						atrocity.costumes = [selectedChara.costumes.at(-1)];
+							atrocity.frameName = selectedChara.frameName;
+							atrocity.charaName = selectedChara.charaName;
+							atrocity.costumes  = [selectedChara.costumes.at(-1)];
 						// console.log(atrocity)
 						selectedChara.save()
 							.then(() => {
@@ -109,11 +106,10 @@ exports.get_update = [
 	(req, res, next) => {
 		// Costume.find( function (err, docs) {
 		// 	if (err) next(createError(500, err));
-
-			let updateCostume = new Form();
-			updateCostume.displayCostume();
-			// updateCostume.setData(docs);
-			res.render('unifiedForm', {form: updateCostume});
+		let updateCostume = new Form();
+		updateCostume.displayCostume();
+		// updateCostume.setData(docs);
+		res.render('unifiedForm', {form: updateCostume});
 		// }).lean();
 	},
 ];
@@ -193,5 +189,8 @@ exports.update = [
 ];
 
 exports.delete = [
-	
+	//notpossible
+	(req, res, next) => {
+		res.render("unavailable");
+	},
 ];
