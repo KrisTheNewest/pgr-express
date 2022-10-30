@@ -66,6 +66,10 @@ exports.update = [
 		}
 	},
 	(req, res, next) => {
+	// 	let insertall = new Form();
+	// 		insertall.displayChara();
+	// 		insertall.setSucc(res.body)
+	// 	res.render('unifiedForm', {form: insertall});
 		res.redirect(`/costumes/${req.params.chara}`);
 	},
 ];
