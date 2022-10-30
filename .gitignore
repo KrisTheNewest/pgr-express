@@ -129,7 +129,6 @@ dist
 .vscode
 .htmlhintrc
 PGR.xlsx
-test.html
 package-lock.json
 temp.js
 test.js
