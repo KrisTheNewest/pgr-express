@@ -12,24 +12,34 @@
       <%- include('./partials/header.ejs'); %>
     </header>
     <main class="container">
-      <h3>
-        <%=allCost.frameName%><small class="text-muted"> <%=allCost.charaName%></small> <button class="btn btn-primary btn-sm">Edit</button>
-      </h3>
-      <h5><%= currCost.skinName %> <button class="btn btn-primary btn-sm">Edit</button></h5> 
+      <div class="row"> 
+        <div class="col-4 col-lg-2"><h2><%=allCost.frameName%><small class="text-muted"> <%=allCost.charaName%></small></h2></div>
+        <div class="col-2"> <%- include('./partials/modifyBtn.ejs', {link: ["chara", allCost._id]}); %></div>
+      </div>
+      <div class="row">
+        <div class="col-4 col-lg-2">
+          <h3><%= currCost.skinName %></h3>
+        </div>
+        <div class="col-2"> <%- include('./partials/modifyBtn.ejs', {link: ["costume", allCost._id, currCost._id]}); %></div>
+      </div>
       <div class="row align-items-start">
         <div class="col">
-          Price <button class="btn btn-primary btn-sm">Edit</button>
+          <h4>Price</h4>
           <table class="table">
             <thead>
               <tr>
+                <th scope="col"></th>
                 <th scope="col">Price</th>
                 <th scope="col">Currency</th>
                 <th scope="col">Comment</th>
               </tr>
             </thead>
             <tbody>
-              <% currCost.price.forEach(function(val){ %> 
+              <% currCost.price.forEach(function(val) { %> 
                 <tr>
+                  <td>
+                    <%- include('./partials/modifyBtn.ejs', {link: ["price", allCost._id, currCost._id, val._id]}); %>
+                  </td> 
                   <% if (val.value) { %> 
                     <td><%= val.value %> </td> 
                   <% } else { %>
@@ -51,10 +61,11 @@
           </table>
         </div>
         <div class="col">
-          Event <button class="btn btn-primary btn-sm">Edit</button>
+          <h5>Event</h5>
           <table class="table">
             <thead>
               <tr>
+                <th scope="col"></th>
                 <th scope="col">Region</th>
                 <th scope="col">Start </th>
                 <th scope="col">Finish</th>
@@ -66,6 +77,9 @@
             <tbody>
               <% currCost.event.forEach(function(val){ %> 
                 <tr>
+                  <td>
+                    <%- include('./partials/modifyBtn.ejs', {link: ["event", allCost._id, currCost._id, val._id]}); %>
+                  </td>
                   <td> <%= val.region %> </td>
                   <% if (val.start) { %> 
                     <td><%= val.start %> </td> 
@@ -97,10 +111,23 @@
       <div class="row align-items-center">
         <div class="btn-group" role="group">
           <% allCost.costumes.forEach(function(costume){ %> 
-            <a href= <%= "../../costumes/" + allCost.frameName + "/" + costume._id.toString()%> class="btn btn-primary" > <%= costume.skinName %> </a>
+            <a href= <%= "../../costumes/" + encodeURI(allCost.frameName) + "/" + costume._id.toString()%> class="btn btn-primary" > <%= costume.skinName %> </a>
           <% }); %>
         </div>
       </div>
     </main>
+    <%- include('./partials/deleteModal.ejs') %>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" 
+            integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" 
+            crossorigin="anonymous">
+    </script>
+    <script>
+      function passData(url, name) {
+        let form = document.getElementById("delet");
+        form.action = url;
+        let text = document.getElementById("hack");
+        text.innerHTML = `ARE YOU SURE YOU WANT TO DELETE THIS ${name.toUpperCase()}?<br>THIS CANNOT BE UNDONE! (for now)`;
+      }
+    </script>
   </body>
 </html>

@@ -1,0 +1,40 @@
+
+<% if (disabled) { %> <button type="button" class="btn btn-primary mt-1" onclick="show()">Event?</button> %> <% } %>
+<div class="row align-items-end <% if (disabled) { %> <%- " d-none" %> <% } %>" id="event_form">
+  <div class="col-3">
+	<label for="start" class="form-label">Start</label>
+	<input id="start" type="date" class="form-control" name="costumes[0][event][0][start]" <% if (disabled) { %> <%- "disabled" %><% } %>>
+  </div>
+  <div class="col-3">
+	<label for="end" class="form-label">End</label>
+	<input id="end" type="date" class="form-control" name="costumes[0][event][0][finish]" <% if (disabled) { %> <%- "disabled" %><% } %>> 
+  </div>
+  <div class="col-3">
+	<div class="form-check">
+	  <input class="form-check-input" type="checkbox" name="costumes[0][event][0][rerun]" value="true" id="flexCheckDefault" <% if (disabled) { %> <%- "disabled" %><% } %>> 
+	  <label class="form-check-label" for="flexCheckDefault">
+		Rerun
+	  </label>
+	</div>
+	<div class="form-check">
+	  <input class="form-check-input" type="checkbox" name="costumes[0][event][0][disc]" value="true" id="flexCheckDefault2" <% if (disabled) { %> <%- "disabled" %><% } %>> 
+	  <label class="form-check-label" for="flexCheckDefault2">
+		Discounted
+	  </label>
+	</div>
+  </div>
+  <div class="col-3">
+	<label for="region" class="form-label">region</label>
+	<select class="form-select" id="region" name="costumes[0][event][0][region]" <% if (disabled) { %> <%- "disabled" %><% } %>>
+	  <option value="CN">CN</option>
+	  <option value="EN">EN</option>
+	  <option value="JP">JP</option>
+	</select>
+  </div>
+  <div class="row">
+	<div class="col">
+		<label for="event_name" class="form-label">Comment/event name</label>
+		<input id="event_name" type="text" class="form-control" name="costumes[0][event][0][name]"<% if (disabled) { %> <%- "disabled" %><% } %>> 
+	</div>
+</div>
+</div>
