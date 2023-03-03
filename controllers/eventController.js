@@ -1,8 +1,6 @@
-const express = require('express');
-const util = require("util")
+
 const createError = require('http-errors');
 const { body, param, validationResult } = require('express-validator');
-const logger = require("../logger.js");
 	
 const Costume = require("../charasSchema.js");
 const Form = require("../FormLayout.js");
@@ -19,6 +17,7 @@ class InsertForm extends Form {
 
 exports.get_insert = [
 	(req, res, next) => {
+		//ditto, choose on the fly, query first
 		Costume.find( function (err, docs) {
 			if (err) next(createError(500, err));
 			let insertEvent = new InsertForm();
@@ -30,6 +29,8 @@ exports.get_insert = [
 
 exports.insert = [
 
+	//check for IDs of chosen chara and costume 
+	//more reliable and easier than names
 	body("_id", "need a valid chara ID")
 		.isMongoId(),
 	body("costumes.*._id", "need a valid costume ID")
@@ -46,25 +47,25 @@ exports.insert = [
 					insertEvent.setError(errors.array());
 					return res.render("unifiedForm", {form: insertEvent});
 				}
-				// let check = await findSubDoc(Costume, )
+				// this might seem redundant because of findSubdoc
+				// but it skips the extra query since we needed one to display data
+				// so it just uses JS methods instead
 				let selectedChara = docs.find(i => i._id.toString() === req.body._id);
 				if (!selectedChara) return next(createError(404, "no chara"));
 				let selectedCostume = selectedChara.costumes.find(i => i._id.toString() === req.body.costumes[0]._id);
 				if (!selectedCostume) return next(createError(404, "no costume"));
 				await selectedChara.updateOne(
-					// {"charaName": "Luna"}, 
+					//just as metioned before, it possibly could use a loop?
 					{ "$push":  {"costumes.$[costId].event": req.body.costumes[0].event[0]}},
 					{ "arrayFilters": 
 						[{"costId._id": req.body.costumes[0]._id}]
 					},
 					(err, changes) => { 
 						if (err) throw err;
-						//console.log(changes)
+						// redirect the user to the newly inserted character/costume
 						res.redirect(`/costumes/${req.body._id}/${req.body.costumes[0]._id}`);
 					}
 				);
-				// console.log(util.inspect(req.body, false, Infinity, true));
-				// res.redirect("back");	
 			})
 	},
 ];
@@ -79,8 +80,8 @@ exports.get_update = [
 
 
 exports.update = [
+	//TODO: add a loop n turn this into a reusable middleware 
 	(req, res, next) => {
-		// let filtered = Object.fromEntries(
 		req.body = req.body.costumes[0].event[0];
 		Object.entries(req.body).forEach(([key, item]) => {
 			if	(item.length === 0) {
@@ -108,16 +109,15 @@ exports.update = [
 		}
 		
 		let oldData = await findSubDoc(Costume, req.params);//.then(data => data).catch(err => next(createError(err.status || 500, err)))
-		// console.log(oldData);
+
 		if (oldData instanceof Error) return next(oldData);
-		// res.redirect("back");
-		// return;
-		// console.log(oldData);
+
 		let [character, oldPrice] = oldData;
-		// console.log(character)
-		// console.log(oldPrice)
+
+		// the id is needed otherwise mongo will add a new one
+		// reusing the old doc and overwriting changed values makes queries easier
 		let newPrice = {...oldPrice, ...req.body, _id: req.params.price};
-		// console.log(newPrice)
+
 		await character.updateOne(
 			{ "$set": { "costumes.$[costId].price.$[priceId]": newPrice}},
 			{ "arrayFilters": 
@@ -126,15 +126,14 @@ exports.update = [
 			
 			(err, changes) => { 
 				if (err) throw err;
-				//console.log(changes)
 				res.redirect(`/costumes/${character.frameName}/${req.params.costume}`);
 			}
 		);
 	},
-	// (req, res, next) => {
-	// 	res.redirect("back");
-	// },
 ];
+
+// deleting is simple, check for the IDs, query the database if the target exists
+// and then use the pull method to remove the subdoc
 
 exports.delete = [
 	param("chara", "need a valid chara ID")
@@ -144,28 +143,25 @@ exports.delete = [
 	param("event", "need a valid event ID")
 		.isMongoId(),
 	async (req, res, next) => {
-		// let filtered = Object.fromEntries(
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
 			console.log("errors", errors.array());
 			return next(createError(500, errors.array()));
 		}
 		let oldData = await findSubDoc(Costume, req.params);//.then(data => data).catch(err => next(createError(err.status || 500, err)))
-		// console.log(oldData);
+
 		if (oldData instanceof Error) return next(oldData);
-		// res.redirect("back");
-		// return;
-		// console.log(oldData);
+
 		let [character] = oldData;
 		await character.updateOne(
-			// {"charaName": "Luna"}, 
+			//pull removes en event from a nested docs/arrays 
 			{ "$pull":  {"costumes.$[costId].event": {_id: req.params.event}}},
 			{ "arrayFilters": 
 				[{"costId._id": req.params.costume}]
 			},
 			(err, changes) => { 
 				if (err) throw err;
-				//console.log(changes)
+				// redirect back to the costume/frame
 				res.redirect(`/costumes/${character.frameName}/${req.params.costume}`);
 			}
 		);

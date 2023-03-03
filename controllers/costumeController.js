@@ -1,7 +1,7 @@
 
 const util = require("util")
 const createError = require('http-errors');
-const { validationResult, } = require('express-validator');
+const { validationResult, param, body } = require('express-validator');
 
 const findSubDoc = require("../findSubDoc.js");
 	
@@ -19,6 +19,8 @@ class charaForm extends Form {
 	event   = true;
 }
 
+// the insert pages/routes allow you choosing the chara/costume on the go
+// and thus need to query first (no ajax needed)
 exports.get_insert = [
 	(req, res, next) => {
 		Costume.find( function (err, docs) {
@@ -35,16 +37,13 @@ exports.insert = [
 	(req, res, next) => {
 		req.body.costumes.forEach(element => {
 		  if (!Array.isArray(element.event)) {
-			element.event = [{}];
+			element.event = [{}]; // just like all, allows running middleware
 		  }
 		});
-		console.log("first", util.inspect(req.body, false, null, true /* enable colors */));
 		next();
 	},
 
-	//TODO: I AM STUPID
-	//TODO: just use ID not name
-	//TODO: why did i use names 
+	//TODO: use ID not name
 	costumeValidator.insert,
 	priceValidator.insert,
 	eventValidator.all,
@@ -63,32 +62,29 @@ exports.insert = [
 				else {
 
 					// TODO: MODIFY IT FOR ID!!!!!!!!!!!!!
-					// TODO: USE MONGOOSE METHODS(?)
-					// possibly would require multiple db queries
 
-					//check if slected chara exists 
+					//check if selected chara exists
 					let selectedChara = docs.find(i => i._id.toString() === req.body.frameName);
+
 					// TODO: need a better solution
 					// this works, but probably could use a loop eventaully
+					// for multiple entries
 					// req.body.costumes.forEach(i => )
 
 					// check for costumes = skin names cannot double
 					if (!selectedChara.costumes.some(item => item.skinName === req.body.costumes[0].skinName)) {
-						console.log(req.body.costumes);
 
-						//simply push the document 
+						//simply push the document to all existing costumes
 						selectedChara.costumes.push(...req.body.costumes);
-						// let newDoc = selectedChara.costumes[2];
-						// console.log(newDoc);
-						// console.log(newDoc.isNew);
-						// let findChara = docs.find(i => i._id.toString() === req.body.frameName);
 
-						// i dunno if this is necesarry, maybe just do the data...?
+						// TODO: refactor
+						// redirects to form data and 
+						// displays newly inserted data 
 						let atrocity = {}
 							atrocity.frameName = selectedChara.frameName;
 							atrocity.charaName = selectedChara.charaName;
 							atrocity.costumes  = [selectedChara.costumes.at(-1)];
-						// console.log(atrocity)
+
 						selectedChara.save()
 							.then(() => {
 								insertCostume.chooseChara();
@@ -104,31 +100,36 @@ exports.insert = [
 
 exports.get_update = [
 	(req, res, next) => {
-		// Costume.find( function (err, docs) {
-		// 	if (err) next(createError(500, err));
 		let updateCostume = new Form();
-		updateCostume.displayCostume();
-		// updateCostume.setData(docs);
+		// updating a specific costume
+		// only requires a costume
+		updateCostume.displayCostume(); 
 		res.render('unifiedForm', {form: updateCostume});
-		// }).lean();
 	},
 ];
 
 exports.update = [
 
 	(req, res, next) => {
-		// let filtered = Object.fromEntries(
-		req.body = req.body.costumes[0]; //TODO: try automating this
+		// since the form/template stays the same
+		// the only need the costume from the form/obj
+		//TODO: try automating this
+		req.body = req.body.costumes[0]; 
 		// Object.entries(req.body).forEach(([key, item]) => {
 		// 	if	(item.length === 0) {
 		// 		delete req.body[key]; 
 		// 	}
 		// })
-		console.log(req.body)
 		next();
 	},	
 	//display just field 
-	costumeValidator.update,
+	param("chara", "need a valid chara ID")
+		.isMongoId(),
+	param("costume", "need a valid costume ID")
+		.isMongoId(),
+	body("skinName", "need a costume name")
+		.trim().isLength({ min: 1 })
+		.escape(),
 	// find if exists
 	// loop over all costumes
 	// loop over provided 
@@ -136,26 +137,29 @@ exports.update = [
 	// check if the name doubles
 	// squash the documents
 
-
 	async (req, res, next) => {
-		// let doesCharaExist = await Costume.findById(req.params.chara);
-		// if (!doesCharaExist) return next(createError(404));
-		// let errors = [];
+			const errors = validationResult(req);
+			if (!errors.isEmpty()) {
+				let updateCostume = new Form();
+					updateCostume.displayCostume(); 
+					updateCostume.setError(errors.array());
+				return res.render("unifiedForm", {form: updateCostume});
+			}
 			//TODO: NEEDS CALLBACK
 			let oldData = await findSubDoc(Costume, req.params);//.then(data => data).catch(err => next(createError(err.status || 500, err)))
-			// console.log(oldData); 
+
 			//TODO: NEEDS CALLBACK
 			if (oldData instanceof Error) return next(oldData);
-			// res.redirect("back");
-			// return;
-			// console.log(oldData);
+
 			//TODO: NEEDS CALLBACK
 			let [character] = oldData;
-			if (character.costumes.some(item =>
-				item.skinName === req.body.skinName)) return next(createError(409));
-			// console.log(character)
-			// console.log(oldPrice)
+			//check if a name already exists = no doubles
+			if (character.costumes.some(item => item.skinName === req.body.skinName)) 
+				return next(createError(409));
 
+			// as for the mongoose/mongodb, it needs to include specific fields
+			// if the entire document with missing fields is sent
+			// it will be overwritten 
 			await character.updateOne(
 				{ "$set": { "costumes.$[costId].skinName": req.body.skinName}},
 				{ "arrayFilters": 
@@ -164,7 +168,6 @@ exports.update = [
 				
 				(err, changes) => { 
 					if (err) throw err;
-					//console.log(changes)
 					res.redirect(`/costumes/${character.frameName}/${req.params.costume}`);
 				}
 			);
@@ -184,12 +187,10 @@ exports.update = [
 		// })
 
 	},
-
-
 ];
 
 exports.delete = [
-	//notpossible
+	// deleting entire costumes is not allowed (as of yet?)
 	(req, res, next) => {
 		res.render("unavailable");
 	},

@@ -138,3 +138,6 @@ views/index.ejs
 .idea
 testclosure.js
 acc.txt
+bootstrap-scale.css
+grab-ip.js
+bin/register-ip.js

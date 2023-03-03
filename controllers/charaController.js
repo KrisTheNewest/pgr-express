@@ -16,25 +16,22 @@ exports.get = [
 ];
 
 exports.insert = [
-//not possible
+	//cannot insert a new chara without a costume
 ];
 
 exports.update = [
 	(req, res, next) => {
-		console.log("og body", req.body);
-		// let filtered = Object.fromEntries(
+		// remove the empty values as they will overwrite exsiting ones
 		Object.entries(req.body)
 			.forEach(([key, item]) => {
 				if	(item.length === 0) {
 					delete req.body[key];
 				}
 			})
-		console.log("filtered", req.body);
 		next();
 	},
-	//TODO: NEED TO CHECK PARAMS
-	//TODO: IT ICNLUDES ID NOT NAME
-	//TODO: SICNE NAME CAN CHANGE ID WONT
+	//NEED TO CHECK PARAMS FOR ID
+	//SINCE NAME CAN CHANGE ID WONT
 	
 	charaValidator.update,
 	param("chara", "need a valid chara")
@@ -46,36 +43,29 @@ exports.update = [
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
 			res.redirect("back");
-			console.log("errors", errors.array());
 		}
 		else {
-			console.log("params", req.params.chara);
 			//THIS NEEDS TO CHECK FOR FRAMENAME THATS BEING INSERTED
-			//NOT FOR THE ID FROM PARAMS!!!!!!!!!!!!!!!!!!!!!!!!!!
+			//IT CANNOT DOUBLE
 			let doesCharaExist = await Costume.exists({frameName: req.body.frameName});
-			if (doesCharaExist) {
-				next(createError(409, "frame with this name already exists"));
+			if (doesCharaExist) { // might have gone a bit too far with some errors
+				next(createError(409, "frame with this name already exists")); 
 			}
 
 			Costume.findOneAndUpdate({_id: req.params.chara}, req.body, (err, doc) => {
 				if (err) throw err;
-
-				console.log(doc);
 				next();
 			});
 		}
 	},
 	(req, res, next) => {
-	// 	let insertall = new Form();
-	// 		insertall.displayChara();
-	// 		insertall.setSucc(res.body)
-	// 	res.render('unifiedForm', {form: insertall});
+		// send the user to the newly updated chara
 		res.redirect(`/costumes/${req.params.chara}`);
 	},
 ];
 
 exports.delete = [
-	// not possible
+	// cannot delete entire charas
 	(req, res, next) => {
 		res.render("unavailable");
 	},
