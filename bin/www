@@ -3,17 +3,17 @@
 /**
  * Module dependencies.
  */
-const fs = require("fs");
+// const fs = require("fs");
 const app = require('../app');
 const debug = require('debug')('pgr-costumes:server');
-const reg_ip = require("./register-ip")();
+// const reg_ip = require("./register-ip")();
 
-const https = require('https');
+const http = require('http');
 
-const privateKey  = fs.readFileSync('C:\\Certbot\\live\\pgr.krystina.dev\\privkey.pem', 'utf8');
-const certificate = fs.readFileSync('C:\\Certbot\\live\\pgr.krystina.dev\\fullchain.pem', 'utf8');
+// const privateKey  = fs.readFileSync('C:\\Certbot\\live\\pgr.krystina.dev\\privkey.pem', 'utf8');
+// const certificate = fs.readFileSync('C:\\Certbot\\live\\pgr.krystina.dev\\fullchain.pem', 'utf8');
 
-const credentials = {key: privateKey, cert: certificate};
+// const credentials = {key: privateKey, cert: certificate};
 
 const port = normalizePort(process.env.PORT || '443');
 app.set('port', port);
@@ -22,7 +22,7 @@ app.set('port', port);
  * Create HTTP server.
  */
 
- const server = https.createServer(credentials, app);
+const server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.

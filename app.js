@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
 const bodyParser = require('body-parser');
-const logger = require("./logger.js");
+// const logger = require("./logger.js");
 const favicon = require('serve-favicon')
 
 const indexRouter = require('./routes/index');
@@ -78,7 +78,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status|| 500);
   
   res.render('error');
-  logger.error(err);
+  console.error(err);
 });
 
 module.exports = app;
