@@ -29,9 +29,13 @@ module.exports = class Form {
     selectCostume() {
         this.scost      = true;
     }
+    //fields are disabled as event is not required
 	disableFields() {
 		this.disbled    = true;
 	}
+    // error = true means data to be displayed is required
+    // its better to keep both as a single method
+    // to avoid forgetting either
     setError(res) {
         this.error      = true;
         this.res        = res;

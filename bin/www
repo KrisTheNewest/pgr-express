@@ -6,6 +6,7 @@
 const fs = require("fs");
 const app = require('../app');
 const debug = require('debug')('pgr-costumes:server');
+const reg_ip = require("./register-ip")();
 
 const https = require('https');
 
