@@ -61,11 +61,11 @@ exports.insert = [
 				}
 				else {
 
-					// TODO: MODIFY IT FOR ID!!!!!!!!!!!!!
+					// TODO: VALIDATE ID!!!!
 
 					//check if selected chara exists
-					let selectedChara = docs.find(i => i._id.toString() === req.body.frameName);
-
+					// console.log(docs)
+					let selectedChara = docs.find(i => i._id.toString() === req.body._id);
 					// TODO: need a better solution
 					// this works, but probably could use a loop eventaully
 					// for multiple entries
