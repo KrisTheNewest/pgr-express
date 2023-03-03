@@ -2,7 +2,6 @@
 const util = require("util")
 const createError = require('http-errors');
 const {validationResult } = require('express-validator');
-// const logger = require("../logger.js");
 	
 const Costume = require("../charasSchema.js");
 const Form = require("../FormLayout.js");
