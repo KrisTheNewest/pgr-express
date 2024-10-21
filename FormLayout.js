@@ -7,9 +7,7 @@ module.exports = class Form {
     scost      = false;
 	disbled    = false;
 	error      = false;
-	succ       = false;
-	error      = false;
-	succ       = false;
+	success    = false;
 
     displayChara() {
         this.chara      = true;
@@ -40,8 +38,8 @@ module.exports = class Form {
         this.error      = true;
         this.res        = res;
     }
-    setSucc(res) {
-        this.succ       = true;
+    setSuccess(res) {
+        this.success       = true;
         this.res        = res;
     }
 	setData(data) {

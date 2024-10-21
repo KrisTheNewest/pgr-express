@@ -1,5 +1,5 @@
 
-const util = require("util")
+// const util = require("util")
 const createError = require('http-errors');
 const { validationResult } = require('express-validator');
 
@@ -60,7 +60,7 @@ exports.insert = [
 				NewChara.save()
 					.then(result => {
 						//display inserted data with a link to the new chara
-						insertAll.setSucc(result);
+						insertAll.setSuccess(result);
 						// and send back to the form
 						res.render("unifiedForm", { form: insertAll })
 					})

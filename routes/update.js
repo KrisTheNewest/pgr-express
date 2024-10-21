@@ -9,9 +9,7 @@ const eventController = require("../controllers/eventController");
 // landing page for updating entire chara
 router.get('/', allController.get);
 // handling post requests 
-router.post('/', allController.update);
-
-
+router.post('/', allController.update)
 
 //CHANGE TO IDS NOT NAMES!!!!!!!!!!!!!!!!!!
 // landing page for updating

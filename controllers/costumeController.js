@@ -86,7 +86,7 @@ exports.insert = [
 						selectedChara.save()
 							.then(() => {
 								insertCostume.chooseChara();
-								insertCostume.setSucc(newCostume);
+								insertCostume.setSuccess(newCostume);
 								res.render("unifiedForm", { form: insertCostume });
 							})
 							.catch(err => next(createError(500, err)));
