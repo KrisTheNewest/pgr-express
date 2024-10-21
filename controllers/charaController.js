@@ -1,6 +1,6 @@
 
 const createError = require('http-errors');
-const { body, param, validationResult } = require('express-validator');
+const { param, validationResult } = require('express-validator');
 
 const Costume = require("../charasSchema.js");
 const Form = require("../FormLayout.js");

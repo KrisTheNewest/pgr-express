@@ -111,7 +111,7 @@ exports.update = [
 			return next(createError(500, errors.array()));
 		}
 
-		let oldData = await findSubDoc(Costume, req.params);//.then(data => data).catch(err => next(createError(err.status || 500, err)))
+		let oldData = await findSubDoc(Costume, req.params);
 		if (oldData instanceof Error) return next(oldData);
 
 		let [ character, oldPrice ] = oldData;
@@ -151,7 +151,7 @@ exports.delete = [
 			return next(createError(500, errors.array()));
 		}
 
-		let oldData = await findSubDoc(Costume, req.params);//.then(data => data).catch(err => next(createError(err.status || 500, err)))
+		let oldData = await findSubDoc(Costume, req.params);
 		if (oldData instanceof Error) return next(oldData);
 
 		let [ character ] = oldData;

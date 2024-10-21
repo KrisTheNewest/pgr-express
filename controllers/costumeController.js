@@ -60,11 +60,10 @@ exports.insert = [
 					res.render("unifiedForm", { form: insertCostume });
 				}
 				else {
-
+					// TODO: refactor
 					// TODO: VALIDATE ID!!!!
 
 					//check if selected chara exists
-					// console.log(docs)
 					let selectedChara = docs.find(i => i._id.toString() === req.body._id);
 					// TODO: need a better solution
 					// this works, but probably could use a loop eventaully
@@ -77,19 +76,18 @@ exports.insert = [
 						//simply push the document to all existing costumes
 						selectedChara.costumes.push(...req.body.costumes);
 
-						// TODO: refactor
+						const newCostume = {}
+						newCostume.frameName = selectedChara.frameName;
+						newCostume.charaName = selectedChara.charaName;
+						newCostume.costumes  = [ selectedChara.costumes.at(-1) ];
+
 						// redirects to form data and 
 						// displays newly inserted data 
-						let atrocity = {}
-							atrocity.frameName = selectedChara.frameName;
-							atrocity.charaName = selectedChara.charaName;
-							atrocity.costumes  = [ selectedChara.costumes.at(-1) ];
-
 						selectedChara.save()
 							.then(() => {
 								insertCostume.chooseChara();
-								insertCostume.setSucc(atrocity);
-								res.render("unifiedForm", { form: insertCostume })
+								insertCostume.setSucc(newCostume);
+								res.render("unifiedForm", { form: insertCostume });
 							})
 							.catch(err => next(createError(500, err)));
 					}
@@ -145,13 +143,10 @@ exports.update = [
 				updateCostume.setError(errors.array());
 			return res.render("unifiedForm", { form: updateCostume });
 		}
-		//TODO: NEEDS CALLBACK
-		let oldData = await findSubDoc(Costume, req.params);//.then(data => data).catch(err => next(createError(err.status || 500, err)))
 
-		//TODO: NEEDS CALLBACK
+		let oldData = await findSubDoc(Costume, req.params);
 		if (oldData instanceof Error) return next(oldData);
 
-		//TODO: NEEDS CALLBACK
 		let [ character ] = oldData;
 		//check if a name already exists = no doubles
 		if (character.costumes.some(item => item.skinName === req.body.skinName))
