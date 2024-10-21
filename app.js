@@ -3,8 +3,8 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
-const sassMiddleware = require('node-sass-middleware');
-const bodyParser = require('body-parser');
+// const sassMiddleware = require('node-sass-middleware');
+// const bodyParser = require('body-parser');
 // const logger = require("./logger.js");
 const favicon = require('serve-favicon')
 
@@ -15,10 +15,10 @@ const updateRouter = require("./routes/update.js");
 const deleteRouter = require("./routes/delete.js");
 
 const mongoose = require("mongoose");
-const mongoDB = 'mongodb://127.0.0.1/my_database';
+const mongoDbUrl = require("./config.json").db_url;
 
 // var express = require('express');
-mongoose.connect(mongoDB, err => {
+mongoose.connect(mongoDbUrl, err => {
   if (err) console.error(err);
   console.log("connected");
 })//.then(() => .catch(err =>console.error(err));
