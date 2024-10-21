@@ -1,7 +1,7 @@
 
 const createError = require('http-errors');
 const { body, param, validationResult } = require('express-validator');
-	
+
 const Costume = require("../charasSchema.js");
 const Form = require("../FormLayout.js");
 
@@ -11,7 +11,7 @@ exports.get = [
 	(req, res, next) => {
 		let insertall = new Form();
 		insertall.displayChara();
-		res.render('unifiedForm', {form: insertall});
+		res.render('unifiedForm', { form: insertall });
 	},
 ];
 
@@ -24,7 +24,7 @@ exports.update = [
 		// remove the empty values as they will overwrite exsiting ones
 		Object.entries(req.body)
 			.forEach(([key, item]) => {
-				if	(item.length === 0) {
+				if (item.length === 0) {
 					delete req.body[key];
 				}
 			})
@@ -32,7 +32,7 @@ exports.update = [
 	},
 	//NEED TO CHECK PARAMS FOR ID
 	//SINCE NAME CAN CHANGE ID WONT
-	
+
 	charaValidator.update,
 	param("chara", "need a valid chara")
 		.trim().isLength({ min: 1 })
@@ -47,12 +47,12 @@ exports.update = [
 		else {
 			//THIS NEEDS TO CHECK FOR FRAMENAME THATS BEING INSERTED
 			//IT CANNOT DOUBLE
-			let doesCharaExist = await Costume.exists({frameName: req.body.frameName});
+			let doesCharaExist = await Costume.exists({ frameName: req.body.frameName });
 			if (doesCharaExist) { // might have gone a bit too far with some errors
-				next(createError(409, "frame with this name already exists")); 
+				next(createError(409, "frame with this name already exists"));
 			}
 
-			Costume.findOneAndUpdate({_id: req.params.chara}, req.body, (err, doc) => {
+			Costume.findOneAndUpdate({ _id: req.params.chara }, req.body, (err, doc) => {
 				if (err) throw err;
 				next();
 			});

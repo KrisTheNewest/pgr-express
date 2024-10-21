@@ -11,8 +11,8 @@ const eventValidator = require("../validators/eventValidator");
 
 class InsertForm extends Form {
 	schara = true;
-	scost = true;
-	price = true;
+	scost  = true;
+	price  = true;
 }
 
 // bascially the same as event
@@ -50,8 +50,10 @@ exports.insert = [
 
 				let selectedChara = docs.find(i => i._id.toString() === req.body._id);
 				if (!selectedChara) return next(createError(404, "no chara"));
+
 				let selectedCostume = selectedChara.costumes.find(i => i._id.toString() === req.body.costumes[0]._id);
 				if (!selectedCostume) return next(createError(404, "no costume"));
+
 				await selectedChara.updateOne(
 					{ "$push": { "costumes.$[costId].price": req.body.costumes[0].price[0] } },
 					{
@@ -108,7 +110,7 @@ exports.update = [
 		let oldData = await findSubDoc(Costume, req.params);//.then(data => data).catch(err => next(createError(err.status || 500, err)))
 		if (oldData instanceof Error) return next(oldData);
 
-		let [character, oldPrice] = oldData;
+		let [ character, oldPrice ] = oldData;
 
 		let newPrice = { ...oldPrice, ...req.body, _id: req.params.price };
 
@@ -133,6 +135,7 @@ exports.delete = [
 		.isMongoId(),
 	param("price", "need a valid price ID")
 		.isMongoId(),
+
 	async (req, res, next) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
@@ -143,7 +146,7 @@ exports.delete = [
 
 		if (oldData instanceof Error) return next(oldData);
 
-		let [character] = oldData;
+		let [ character ] = oldData;
 		await character.updateOne(
 			{ "$pull": { "costumes.$[costId].price": { _id: req.params.price } } },
 			{

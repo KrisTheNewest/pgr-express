@@ -1,8 +1,8 @@
 
 const util = require("util")
 const createError = require('http-errors');
-const {validationResult } = require('express-validator');
-	
+const { validationResult } = require('express-validator');
+
 const Costume = require("../charasSchema.js");
 const Form = require("../FormLayout.js");
 
@@ -22,7 +22,7 @@ exports.get = [
 	(req, res, next) => {
 		let insertAll = new allForm();
 		insertAll.disableFields(); // <= event is not required by default
-		res.render('unifiedForm', {form: insertAll});
+		res.render('unifiedForm', { form: insertAll });
 	},
 ];
 
@@ -30,9 +30,9 @@ exports.insert = [
 	(req, res, next) => {
 		// this is required for mongoose to run middleware, event is "-" if none specfied
 		req.body.costumes.forEach(element => {
-		  if  (!Array.isArray(element.event)) {
-			element.event = [{}]; 
-		  }
+			if (!Array.isArray(element.event)) {
+				element.event = [{}];
+			}
 		});
 		console.log("first", util.inspect(req.body, false, null, true /* enable colors */));
 		next();
@@ -50,11 +50,11 @@ exports.insert = [
 
 		if (!errors.isEmpty()) {
 			insertAll.setError(errors.array()); //specfiy the error
-			res.render("unifiedForm", {form: insertAll}); //send the user back to form with errors displayed 
+			res.render("unifiedForm", { form: insertAll }); //send the user back to form with errors displayed 
 		}
 		else {
 			// name of the frame ie specific chara can't double
-			let doesCharaExist = await Costume.exists({frameName: req.body.frameName});
+			let doesCharaExist = await Costume.exists({ frameName: req.body.frameName });
 			if (!doesCharaExist) {
 				let NewChara = new Costume(req.body);
 				NewChara.save()
@@ -62,7 +62,7 @@ exports.insert = [
 						//display inserted data with a link to the new chara
 						insertAll.setSucc(result);
 						// and send back to the form
-						res.render("unifiedForm", {form: insertAll})
+						res.render("unifiedForm", { form: insertAll })
 					})
 					.catch(err => next(createError(500, err)));
 			}
