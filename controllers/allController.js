@@ -34,7 +34,7 @@ exports.insert = [
 				element.event = [{}];
 			}
 		});
-		console.log("first", util.inspect(req.body, false, null, true /* enable colors */));
+		// console.log("first", util.inspect(req.body, false, null, true /* enable colors */));
 		next();
 	},
 	//run validaiton

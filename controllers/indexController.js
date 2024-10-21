@@ -37,7 +37,7 @@ exports.costume = [
 			if (frame === null) return next(createError(404, 'No character found!'));
 			// if no ID is specified just display the first costume
 			let costumeFindById = frame.costumes.id(req.params.costume) ?? frame.costumes[0];
-			res.render("costume", { currCost: costumeFindById, allCost: frame }); //(frame.costumes.id(req.params.costume)===null) ? throw  : req.body.genre,
+			res.render("costume", { currCost: costumeFindById, allCost: frame });
 		});
 	},
 ]
