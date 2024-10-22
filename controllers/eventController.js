@@ -120,7 +120,7 @@ exports.update = [
 		// reusing the old doc and overwriting changed values makes queries easier
 		let newPrice = { ...oldPrice, ...req.body, _id: req.params.price };
 
-		await character.updateOne(
+		character.updateOne(
 			{ "$set": { "costumes.$[costId].price.$[priceId]": newPrice } },
 			{
 				"arrayFilters":
@@ -155,7 +155,7 @@ exports.delete = [
 		if (oldData instanceof Error) return next(oldData);
 
 		let [ character ] = oldData;
-		await character.updateOne(
+		character.updateOne(
 			//pull removes en event from a nested docs/arrays 
 			{ "$pull": { "costumes.$[costId].event": { _id: req.params.event } } },
 			{

@@ -155,7 +155,7 @@ exports.update = [
 		// as for the mongoose/mongodb, it needs to include specific fields
 		// if the entire document with missing fields is sent
 		// it will be overwritten 
-		await character.updateOne(
+		character.updateOne(
 			{ "$set": { "costumes.$[costId].skinName": req.body.skinName } },
 			{
 				"arrayFilters":

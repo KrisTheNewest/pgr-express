@@ -142,12 +142,13 @@ exports.delete = [
 			console.log("errors", errors.array());
 			return next(createError(500, errors.array()));
 		}
-		let oldData = await findSubDoc(Costume, req.params);
 
+		let oldData = await findSubDoc(Costume, req.params);
 		if (oldData instanceof Error) return next(oldData);
 
 		let [ character ] = oldData;
-		await character.updateOne(
+
+		character.updateOne(
 			{ "$pull": { "costumes.$[costId].price": { _id: req.params.price } } },
 			{
 				"arrayFilters":
