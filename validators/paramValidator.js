@@ -1,4 +1,5 @@
 const { param } = require('express-validator');
+
 exports.all = [
 	param("chara", "need a valid chara ID")
 	.isMongoId(),
@@ -7,5 +8,3 @@ exports.all = [
 	param("price", "need a valid price ID")
 	.isMongoId(),
 ];
-
-// modules.exports = all;
