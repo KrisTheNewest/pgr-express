@@ -21,7 +21,7 @@ mongoose.connect(mongoDbUrl, err => {
 mongoose.set('debug', true);
 
 const app = express();
-app.use(favicon(path.join(__dirname, 'public/images', 'icon32.png')));
+app.use(favicon(path.join(__dirname, 'public/images', 'favicon.ico')));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
