@@ -8,7 +8,7 @@
 const createError = require("http-errors");
 
 module.exports = function findSubDoc(Schema, params) {
-	// console.log(arguments)
+	// console.log({ Schema, params });
 	return Schema.findById(params.chara)
 		.then(chara => {
 			if (!chara) return createError(404, "no chara" );

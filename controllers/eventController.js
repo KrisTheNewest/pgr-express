@@ -98,7 +98,7 @@ exports.update = [
 		.isMongoId(),
 	param("costume", "need a valid costume ID")
 		.isMongoId(),
-	param("price", "need a valid event ID")
+	param("event", "need a valid event ID")
 		.isMongoId(),
 
 	// TODO: NEED TO VALIDATE
@@ -108,23 +108,23 @@ exports.update = [
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
 			console.log("errors", errors.array());
-			return next(createError(500, errors.array()));
+			return next(createError(400, errors.array()));
 		}
 
 		let oldData = await findSubDoc(Costume, req.params);
 		if (oldData instanceof Error) return next(oldData);
 
-		let [ character, oldPrice ] = oldData;
+		let [ character, oldEvent ] = oldData;
 
 		// the id is needed otherwise mongo will add a new one
 		// reusing the old doc and overwriting changed values makes queries easier
-		let newPrice = { ...oldPrice, ...req.body, _id: req.params.price };
+		let newEvent = { ...oldEvent, ...req.body, _id: req.params.event };
 
 		character.updateOne(
-			{ "$set": { "costumes.$[costId].price.$[priceId]": newPrice } },
+			{ "$set": { "costumes.$[costId].event.$[eventId]": newEvent } },
 			{
 				"arrayFilters":
-					[{ "costId._id": req.params.costume }, { "priceId._id": req.params.price }]
+					[{ "costId._id": req.params.costume }, { "eventId._id": req.params.event }]
 			},
 			(err, changes) => {
 				if (err) throw err;

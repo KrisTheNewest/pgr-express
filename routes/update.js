@@ -28,9 +28,9 @@ router.get('/price/:chara/:costume/:price', priceController.get_update);
 router.post('/price/:chara/:costume/:price', priceController.update);
 
 // landing page for adding a new event to existing costume
-router.get('/event/:chara/:costume/:price', eventController.get_update);
+router.get('/event/:chara/:costume/:event', eventController.get_update);
 // handling post requests 
-router.post('/event/:chara/:costume/:price', eventController.update);
+router.post('/event/:chara/:costume/:event', eventController.update);
 
 module.exports = router;
 
