@@ -109,18 +109,18 @@
       </div>
       <div class="row align-items-center">
         <div class="btn-group" role="group">
-          <% allCost.costumes.forEach(function(costume){ %> 
+          <% allCost.costumes.forEach(function(costume) { %> 
             <a href= <%= "../../costumes/" + encodeURI(allCost.frameName) + "/" + costume._id.toString()%> class="btn btn-primary" > <%= costume.skinName %> </a>
           <% }); %>
         </div>
       </div>
     </main>
-    <%- include('./partials/deleteModal.ejs') %>
+    <%- include('./partials/deleteModal.ejs'); %>
     <script>
       function passData(url, name) {
-        let form = document.getElementById("delet");
+        let form = document.getElementById("_delete");
         form.action = url;
-        let text = document.getElementById("hack");
+        let text = document.getElementById("_placeholder");
         text.innerHTML = `ARE YOU SURE YOU WANT TO DELETE THIS ${name.toUpperCase()}?<br>THIS CANNOT BE UNDONE! (for now)`;
       }
     </script>
