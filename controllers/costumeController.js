@@ -79,13 +79,14 @@ exports.insert = [
 						const newCostume = {}
 						newCostume.frameName = selectedChara.frameName;
 						newCostume.charaName = selectedChara.charaName;
+						newCostume._id       = selectedChara._id;
 						newCostume.costumes  = [ selectedChara.costumes.at(-1) ];
 
 						// redirects to form data and 
 						// displays newly inserted data 
 						selectedChara.save()
 							.then(() => {
-								insertCostume.chooseChara();
+								insertCostume.selectChara();
 								insertCostume.setSuccess(newCostume);
 								res.render("unifiedForm", { form: insertCostume });
 							})
