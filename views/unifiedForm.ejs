@@ -7,6 +7,7 @@
 	<title>PGR Coatings</title>
 	<link rel="stylesheet" href="/css/bootstrap.min.css" />
 </head>
+
 <body>
 	<header>
 		<%- include('./partials/header.ejs'); %>
@@ -25,11 +26,11 @@
 			<% if (form.costume)	{ %> <%- include('./formPartials/costumeForm.ejs'); 						%> <% } %>
 			<% if (form.price)		{ %> <%- include('./formPartials/priceForm.ejs'); 							%> <% } %>
 			<% if (form.event)		{ %> <%- include('./formPartials/eventForm.ejs', {disabled: form.disbled}); %> <% } %>
-		<div class="row mt-1">
-			<div class="col">
-				<button type="submit" class="btn btn-primary">Submit</button>
+			<div class="row mt-1">
+				<div class="col">
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</div>
 			</div>
-		</div>	
 		</form>
 	</main>
 	<script src="/js/bootstrap.js"></script>

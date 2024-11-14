@@ -2,12 +2,12 @@
 	<!-- how do i reuse code here 🤔 -->
 	<% let list = "/" + link.reduce((t, l) => t + "/" + l.toString()); %>
 	<a href=<%="/insert/" + link[0]%> type="button" class="btn btn-success btn-sm">
-	+
+		+
 	</a> 
 	<a href=<%= "/update" + list %> type="button" class="btn btn-primary btn-sm">
-	Edit
+		Edit
 	</a>
 	<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="passData('/delete' + '<%-list%>','<%-link[0]%>' )">
-	\_/
+		\_/
 	</button>
 </div>

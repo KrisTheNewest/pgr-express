@@ -2,26 +2,28 @@
 	<div class="card text-white bg-success mb-3">
 		<div class="card-header">Looking good!</div>
 		<div class="card-body">
-		  <h5 class="card-title">the succ(ess)</h5>
-		  <p class="card-text">
-				<%= inserted.frameName  +  " " + inserted.charaName  %><br>
-				<% inserted.costumes.forEach(function(costume){ %> 
-					<%= costume.skinName %><br>
-					<% costume.price.forEach(function(prices){ %> 
-						<%= prices.value + " " + prices.currency %><br>
+			<h5 class="card-title">the succ(ess)</h5>
+			<p class="card-text"> <!-- TODO: CONCAT A STRING IN THE CONTROLLER!!! -->
+				<%= inserted.frameName  +  " " + inserted.charaName  %> <br>
+				<% inserted.costumes.forEach(function(costume) { %>
+					<%= costume.skinName %> <br>
+					<% costume.price.forEach(function(prices) { %>
+						<%= prices.value + " " + prices.currency %> <br>
 						<%= prices.name %><br>
 					<% }); %>
-						<% costume.event.forEach(function(events){ %> 
+						<% costume.event.forEach(function(events) { %>
 							<% if (events.name !== "-") { %>
-								<%= events.name + " " + events.region %><br>
-								<%= events.start.toUTCString() + " - " + events.finish.toUTCString() %><br>
-								 <%= events.disc + " - " + events.rerun %><br> <!--TODO:CHANGE THESE TO TICKS EMOJI INSTEAD OF RAW VALUES -->
+								<%= events.name + " " + events.region %> <br>
+								<%= events.start.toUTCString() + " - " + events.finish.toUTCString() %> <br>
+								<%= events.disc + " - " + events.rerun %> <br> <!--TODO:CHANGE THESE TO TICKS EMOJI INSTEAD OF RAW VALUES -->
 							<% } %>
 						<% }); %>
 				<% }); %>
-			<p class="card-text">Find the new character</p>
-			<a class="btn btn-light" href= <%= "/costumes/" + inserted._id.toString() + "/" + inserted.costumes[0]._id.toString()%>>here</a>
-		  </p>
+				<p class="card-text">Find the new character</p>
+				<a class="btn btn-light" href= <%= "/costumes/" + inserted._id.toString() + "/" + inserted.costumes[0]._id.toString()%> >
+					here
+				</a>
+		  	</p>
 		</div>
 	</div>
 </div>

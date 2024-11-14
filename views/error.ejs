@@ -1,22 +1,26 @@
-
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="icon" href="/images/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>PGR Coatings</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css" />
-  </head>
-  <body>
-    <header>
-      <%- include('./partials/header.ejs'); %>
-    </header>
-    <main class="container">
-      <h1><%= error.status + " - " + message %></h1>
-      <% if (error.status===500) {  %>
-        <p>Please try again later</p>
-      <% } %> 
-	    <a href="/costumes/" class="link-primary">Go back...</a>
-    </main>
-  </body>
+
+<head>
+	<link rel="icon" href="/images/favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>PGR Coatings</title>
+	<link rel="stylesheet" href="/css/bootstrap.min.css" />
+</head>
+
+<body>
+	<header>
+		<%- include('./partials/header.ejs'); %>
+	</header>
+	<main class="container">
+		<h1>
+			<%= error.status + " - " + message %>
+		</h1>
+		<% if (error.status===500) { %>
+			<p>Please try again later</p>
+		<% } %>
+		<a href="/costumes/" class="link-primary">Go back...</a>
+	</main>
+</body>
+
 </html>
