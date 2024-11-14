@@ -21,7 +21,7 @@ class InsertForm extends Form {
 
 exports.get_insert = [
 	(req, res, next) => {
-		Costume.find(function (err, docs) {
+		Costume.find((err, docs) => {
 			if (err) next(createError(500, err));
 			let insertEvent = new InsertForm();
 			insertEvent.setData(docs);

@@ -23,7 +23,7 @@ class charaForm extends Form {
 // and thus need to query first (no ajax needed)
 exports.get_insert = [
 	(req, res, next) => {
-		Costume.find(function (err, docs) {
+		Costume.find((err, docs) => {
 			if (err) next(createError(500, err));
 			let insertCostume = new charaForm();
 			insertCostume.selectChara();

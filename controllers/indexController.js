@@ -18,7 +18,7 @@ exports.costume = [
 		.trim().isLength({ min: 1 })
 		.escape(),
 
-	function (req, res, next) {
+	(req, res, next) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
 			console.log("errors", errors.array());
@@ -31,7 +31,7 @@ exports.costume = [
 			? { "_id": req.params.chara }
 			: { "frameName": req.params.chara };
 
-		Costume.findOne(conditon, function (err, frame) {
+		Costume.findOne(conditon, (err, frame) => {
 			if (err) next(createError(500, err));
 
 			if (frame === null) return next(createError(404, 'No character found!'));
