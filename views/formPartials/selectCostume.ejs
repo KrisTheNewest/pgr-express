@@ -2,20 +2,19 @@
 	let existingForm = document.getElementById("chara_select");
 	let oldNewForm;
 	let newFormExists = false;
-	<% let test = JSON.stringify(names) %>
-	let allCharas = `<%- test %>`;
+	<% let passedData = JSON.stringify(names); %>
+	let allCharas = `<%- passedData %>`;
 	allCharas = JSON.parse(allCharas);
 
-	existingForm.addEventListener('change', function() {
-
+	existingForm.addEventListener('change', () => {
 		let selectedId = existingForm.options[existingForm.selectedIndex].value;
 		let chosen = allCharas.find(c => c._id.toString() === selectedId);
 
 		let newForm = `<select class="form-select" id="costume_select" name="costumes[0][_id]">
-			<option selected>Select a costume</option>\n`
-		chosen.costumes.forEach(function(costume) { // <!--need to pass the chara here to loop over the costumes this will be a nightmare-->
-			newForm += `\t<option value= ${costume._id.toString()}>${costume.skinName}</option>\n`;
-		});
+			<option selected>Select a costume</option>\n`;
+		chosen.costumes.forEach((costume) =>
+			newForm += `\t<option value= ${costume._id.toString()}>${costume.skinName}</option>\n`
+		);
 		newForm += `</select>`;
 
 		if (!newFormExists) {
