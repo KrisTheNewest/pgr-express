@@ -1,8 +1,12 @@
 <div class="row">
 	<div class="card text-white bg-success mb-3">
-		<div class="card-header">Looking good!</div>
+		<h5 class="card-header">
+			Looking good!
+		</h5>
 		<div class="card-body">
-			<h5 class="card-title">the succ(ess)</h5>
+			<h5 class="card-title">
+				Success
+			</h5>
 			<p class="card-text"> <!-- TODO: CONCAT A STRING IN THE CONTROLLER!!! -->
 				<%= inserted.frameName  +  " " + inserted.charaName  %> <br>
 				<% inserted.costumes.forEach(function(costume) { %>
@@ -19,11 +23,13 @@
 							<% } %>
 						<% }); %>
 				<% }); %>
-				<p class="card-text">Find the new character</p>
-				<a class="btn btn-light" href= <%= "/costumes/" + inserted._id.toString() + "/" + inserted.costumes[0]._id.toString()%> >
-					here
-				</a>
 		  	</p>
+			<p class="card-text">
+				Find the new character
+			</p>
+			<a class="btn btn-light" href= <%= "/costumes/" + inserted._id.toString() + "/" + inserted.costumes[0]._id.toString()%> >
+				here
+			</a>
 		</div>
 	</div>
 </div>
