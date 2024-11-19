@@ -1,30 +1,30 @@
 
+<div class="row rounded-top border-bottom-0" style="border: 1px solid #b52c39;">
+	<h5 class="mb-0 py-2 ps-3 text-white bg-danger" >Error'd</h5>
+</div>
 <div class="row">
-	<div class="card-header bg-danger text-white">
-	Error'd
-	</div>
 	<div class="card-group text-white bg-danger">
-		<dv class="card bg-danger" style="max-width: 150px">
+		<div class="card bg-danger" style="max-width: 150px">
 			<ul class="list-group bg-danger">
 				<li class="list-group-item list-group-item-danger fw-bold">Your Value:</li>
 				<li class="list-group-item list-group-item-danger fw-bold">Where</li>
 				<li class="list-group-item list-group-item-danger fw-bold">Error:</li>
 			</ul>
-		</dv>
+		</div>
 		<% inserted.forEach(error => { %>
-			<dv class="card bg-danger">
+			<div class="card bg-danger">
 				<ul class="list-group bg-danger">
 					<li class="list-group-item list-group-item-danger ">
 					<% if (error.value === "") { %>
 						none
 					<% } else { %>
-						<%=error.value%>
+						<%= error.value %>
 					<% } %>
 					</li>
-					<li class="list-group-item list-group-item-danger "><%=error.param%> </li>
-					<li class="list-group-item list-group-item-danger "><%=error.msg%></li>
+					<li class="list-group-item list-group-item-danger"><%= error.param %> </li>
+					<li class="list-group-item list-group-item-danger"><%= error.msg %></li>
 				</ul>
-			</dv>
-		<% }) %>
+			</div>
+		<% }); %>
 	</div>
 </div>
