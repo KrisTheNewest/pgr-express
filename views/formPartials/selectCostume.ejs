@@ -15,12 +15,12 @@
 			return;
 		}
 
-		let newForm = `<select class="form-select" id="costume_select" name="costumes[0][_id]">
+		let newForm = `<div class="row"><div class="col"><select class="form-select" id="costume_select" name="costumes[0][_id]">
 			<option selected>Select a costume</option>\n`;
 		chosen.costumes.forEach((costume) =>
 			newForm += `\t<option value= ${costume._id.toString()}>${costume.skinName}</option>\n`
 		);
-		newForm += `</select>`;
+		newForm += `</select></div></div>`;
 
 		if (!newFormExists) {
 			existingForm.insertAdjacentHTML("afterend", newForm);

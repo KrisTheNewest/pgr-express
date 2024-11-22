@@ -1,30 +1,40 @@
 
-<div class="row rounded-top border-bottom-0" style="border: 1px solid #b52c39;">
-	<h5 class="mb-0 py-2 ps-3 text-white bg-danger" >Error'd</h5>
-</div>
-<div class="row">
-	<div class="card-group text-white bg-danger">
-		<div class="card bg-danger" style="max-width: 150px">
-			<ul class="list-group bg-danger">
-				<li class="list-group-item list-group-item-danger fw-bold">Your Value:</li>
-				<li class="list-group-item list-group-item-danger fw-bold">Where</li>
-				<li class="list-group-item list-group-item-danger fw-bold">Error:</li>
-			</ul>
-		</div>
-		<% inserted.forEach(error => { %>
-			<div class="card bg-danger">
-				<ul class="list-group bg-danger">
-					<li class="list-group-item list-group-item-danger ">
-					<% if (error.value === "") { %>
-						none
-					<% } else { %>
-						<%= error.value %>
-					<% } %>
-					</li>
-					<li class="list-group-item list-group-item-danger"><%= error.param %> </li>
-					<li class="list-group-item list-group-item-danger"><%= error.msg %></li>
-				</ul>
+<div class="row rounded-top text-white bg-danger" style="border: 1px solid #b52c39;">
+	<div class="col">
+		<div class="row">
+			<div class="col">
+				<h5 class="py-2 mb-0">Error'd</h5>
 			</div>
-		<% }); %>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="table-responsive">
+					<table class="table table-danger table-bordered border-danger">
+						<thead>
+							<tr>
+								<th scope="col">Your Value:</th>
+								<th scope="col">Where</th>
+								<th scope="col">Error:</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% inserted.forEach(error => { %>
+								<tr>
+									<td>
+										<% if (error.value === "") { %>
+											none
+										<% } else { %>
+											<%= error.value %>
+										<% } %>
+									</td>
+									<td> <%= error.param %> </td>
+									<td> <%= error.msg %> </td>
+								</tr>
+							<% }); %>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>

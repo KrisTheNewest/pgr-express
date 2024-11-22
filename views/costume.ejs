@@ -123,12 +123,14 @@
 			</div>
 		</div>
 		<div class="row align-items-center">
-			<div class="btn-group" role="group">
-			  <% allCost.costumes.forEach(function(costume) { %>
-					<a href= <%= "../../costumes/" + encodeURI(allCost.frameName) + "/" + costume._id.toString() %> class="btn btn-primary" >
-						<%= costume.skinName %>
-					</a>
-			  <% }); %>
+			<div class="col">
+				<div class="btn-group w-100" role="group">
+					<% allCost.costumes.forEach(function(costume) { %>
+						<a href= <%= "../../costumes/" + encodeURI(allCost.frameName) + "/" + costume._id.toString() %> class="btn btn-primary" >
+							<%= costume.skinName %>
+						</a>
+					<% }); %>
+				</div>
 			</div>
 		</div>
 	</main>

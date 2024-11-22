@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<link rel="icon" href="/images/favicon.ico">
@@ -17,21 +18,25 @@
 	simplified the files and code but makes passing data to nested files a bit tricky
 	check the controllers and FormLayout -->
 	<main class="container">
-			<% if (form.success)	{ %> <%- include("./partials/success.ejs", {inserted: form.res})      		%> <% } %>
-			<% if (form.error)		{ %> <%- include("./partials/derror.ejs", {inserted: form.res})      		%> <% } %>
-		<form action="" method="post">
-			<% if (form.chara)		{ %> <%- include('./formPartials/charaForm.ejs'); 							%> <% } %>
-			<% if (form.schara)		{ %> <%- include('./formPartials/selectChara.ejs', {names: form.data});		%> <% } %>
-			<% if (form.scost)		{ %> <%- include('./formPartials/selectCostume.ejs', {names: form.data});   %> <% } %>
-			<% if (form.costume)	{ %> <%- include('./formPartials/costumeForm.ejs'); 						%> <% } %>
-			<% if (form.price)		{ %> <%- include('./formPartials/priceForm.ejs'); 							%> <% } %>
-			<% if (form.event)		{ %> <%- include('./formPartials/eventForm.ejs', {disabled: form.disbled}); %> <% } %>
-			<div class="row mt-1">
+			<% if (form.success)	{ %> <%- include("./partials/success.ejs", {inserted: form.res}) %> <% } %>
+			<% if (form.error)		{ %> <%- include("./partials/derror.ejs", {inserted: form.res})  %> <% } %>
+			<div class="row">
 				<div class="col">
-					<button type="submit" class="btn btn-primary">Submit</button>
+					<form action="" method="post">
+						<% if (form.chara)		{ %> <%- include('./formPartials/charaForm.ejs'); 							%> <% } %>
+						<% if (form.schara)		{ %> <%- include('./formPartials/selectChara.ejs', {names: form.data});		%> <% } %>
+						<% if (form.scost)		{ %> <%- include('./formPartials/selectCostume.ejs', {names: form.data});	%> <% } %>
+						<% if (form.costume)	{ %> <%- include('./formPartials/costumeForm.ejs'); 						%> <% } %>
+						<% if (form.price)		{ %> <%- include('./formPartials/priceForm.ejs'); 							%> <% } %>
+						<% if (form.event)		{ %> <%- include('./formPartials/eventForm.ejs', {disabled: form.disbled}); %> <% } %>
+						<div class="row mt-1">
+							<div class="col">
+								<button type="submit" class="btn btn-primary">Submit</button>
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
-		</form>
 	</main>
 	<script src="/js/bootstrap.js"></script>
 	<script>
@@ -44,4 +49,5 @@
 		}
 	</script>
 </body>
+
 </html>

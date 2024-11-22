@@ -13,21 +13,29 @@
 		<%- include('./partials/header.ejs'); %>
 	</header>
 	<main class="container">
-		<p><a href="/insert">Add new stuff</a></p>
-		<a href="/images/calendar-2022327.jpg">🗓️calendar</a>
+		<div class="row">
+			<div class="col">
+				<a href="/insert">Add new stuff</a>
+				<a href="/images/calendar-2022327.jpg">🗓️calendar</a>
+			</div>
+		</div>
 		<ul class="list-inline">
-			<% names.forEach(function(chara){ %>
+			<% names.forEach(function(chara) { %>
 				<li class="list-inline-item"> <a href= <%= "/costumes/" + encodeURI(chara.frameName) + "/" + chara.costumes[0]._id.toString() %> > <%= chara.frameName + " - " + chara.charaName %> </a></li>
 			<% }); %>
 		</ul>
 	</main>
 	<footer class="container">
-		<div class="btn-group" role="group">
-			<a class="btn btn-dark disabled" role="button">Add a new...</a>
-			<a href="/insert/" class="btn btn-outline-dark" role="button">...character (and costume)</a>
-			<a href="/insert/costume" class="btn btn-outline-dark" role="button">...costume</a>
-			<a href="/insert/event" class="btn btn-outline-dark" role="button">...event</a>
-			<a href="/insert/price" class="btn btn-outline-dark" role="button">...price</a>
+		<div class="row">
+			<div class="col">
+				<div class="btn-group" role="group">
+					<a class="btn btn-dark disabled" role="button">Add a new...</a>
+					<a href="/insert/" class="btn btn-outline-dark" role="button">...character (and costume)</a>
+					<a href="/insert/costume" class="btn btn-outline-dark" role="button">...costume</a>
+					<a href="/insert/event" class="btn btn-outline-dark" role="button">...event</a>
+					<a href="/insert/price" class="btn btn-outline-dark" role="button">...price</a>
+				</div>
+			</div>
 		</div>
 	</footer>
 </body>
