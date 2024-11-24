@@ -1,18 +1,18 @@
 
 <!-- the button is displayed in the full character form while the header is shown when you add an event -->
 
-<div class="row align-items-end">
+<div class="row">
 	<div class="col">
 		<div class="row <% if (!disabled) { %> <%- " d-none" %> <% } %>">
 			<div class="col">
-				<button type="button" class="btn btn-primary mt-1" onclick="showEvent()">Event?</button>
+				<button type="button" class="btn btn-primary mt-2 mb-1" onclick="showEvent()">Event?</button>
 			</div>
 		</div>
 		<div class="row <% if (disabled) { %> <%- " d-none" %> <% } %>" id="event_form">
 			<div class="col">
 				<div class="row">
 					<div class="col">
-						<h4>Event:</h4>
+						<h4 class="mt-2 mb-1">Event:</h4>
 					</div>
 				</div>
 				<div class="row">
