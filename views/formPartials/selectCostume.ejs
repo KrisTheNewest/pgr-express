@@ -21,7 +21,7 @@
 			newForm += `\t<option value= ${costume._id.toString()}>${costume.skinName}</option>\n`
 		);
 		newForm += `</select>`;
-		newForm = `<div class="form-floating">\n${newForm}\n<label for="costume_select">Costume</label></div>`;;
+		newForm = `<div><label class="h3" for="costume_select">Costume</label>\n${newForm}\n</div>`;;
 
 		if (!newFormExists) {
 			existingForm.parentElement.insertAdjacentHTML("afterend", newForm);

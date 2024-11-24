@@ -1,13 +1,13 @@
 <div class="row">
 	<div class="col">
-		<div class="form-floating">
+		<div>
+			<label class="h3" for="chara_select">Select a character</label>
 			<select class="form-select" id="chara_select" name="_id">
 				<option selected>Select a character</option>
 				<% names.forEach((chara) => { %>
 					<option value= <%= chara._id.toString() %> ><%= chara.frameName %> </option>
 				<% }); %>
 			</select>
-			<label for="chara_select">Character</label>
 		</div>
 	</div>
 </div>
