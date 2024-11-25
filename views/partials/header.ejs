@@ -1,9 +1,27 @@
-<nav class="navbar navbar-light bg-light">
+<nav class="navbar navbar-expand-lg border-bottom border-primary text-primary-emphasis">
 	<div class="container">
-		<a href="/costumes/" class="navbar-brand">PGR Costumes</a>
-		<form class="d-flex">
-			<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-			<button class="btn btn-outline-success" type="submit">You Thought</button>
-		</form>
+		<a href="/costumes/" class="navbar-brand text-primary">PGR Costumes</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle text-primary-emphasis" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						Add a new...
+					</a>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="/insert/">...character (and costume)</a></li>
+						<li><a class="dropdown-item" href="/insert/costume">...costume</a></li>
+						<li><a class="dropdown-item" href="/insert/event">...event</a></li>
+						<li><a class="dropdown-item" href="/insert/price">...price</a></li>
+					</ul>
+				</li>
+			</ul>
+			<form class="d-flex">
+				<input class="form-control me-2 bg-primary-subtle" type="search" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-primary" type="submit">?</button>
+			</form>
+		</div>
 	</div>
 </nav>
